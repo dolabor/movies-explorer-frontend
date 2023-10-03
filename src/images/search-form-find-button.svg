@@ -1,0 +1,21 @@
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="34" height="34" fill="#E5E5E5"/>
+<g id="RESULT_MAIN" clip-path="url(#clip0_1_8436)">
+<rect width="1280" height="1974" transform="translate(-1170 -140)" fill="#202020"/>
+<g id="search__ID:9">
+<rect id="back__COLOR:primary" x="-1170" y="-66" width="1280" height="247" fill="#202020"/>
+<rect id="search-input__COLOR:special-2" x="-1100" y="-6" width="1140" height="46" rx="23" fill="#2F2F2F"/>
+<g id="find">
+<g id="find_2">
+<rect id="back__COLOR:main-2" width="34" height="34" rx="17" fill="#4285F4"/>
+<path id="text__COLOR:invisible" d="M15 23L20 17L15 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1_8436">
+<rect width="1280" height="1974" fill="white" transform="translate(-1170 -140)"/>
+</clipPath>
+</defs>
+</svg>

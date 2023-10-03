@@ -1,0 +1,14 @@
+.button {
+  transition: opacity 2s;
+  cursor: pointer;
+  padding: 0;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
+  border-radius: 3px;
+}
+
+.button :hover {
+  opacity: 0.8;
+}

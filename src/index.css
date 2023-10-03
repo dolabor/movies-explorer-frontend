@@ -1,13 +1,50 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url(./blocks/body/body.css);
+@import url(./blocks/button/button.css);
+@import url(./blocks/section-title/section-title.css);
+
+@import url(./components/Header/header.css);
+@import url(./components/Promo/promo.css);
+@import url(./components/NavTab/navtab.css);
+@import url(./components/AboutProject/about-project.css);
+@import url(./components/Techs/techs.css);
+@import url(./components/AboutMe/about-me.css);
+@import url(./components/Portfolio/portfolio.css);
+@import url(./components/Footer/footer.css);
+@import url(./components/Movies/Movies.css);
+@import url(./components/SearchForm/SearchForm.css);
+
+/*@import url(./blocks/popup/popup.css);*/
+/*@import url(./blocks/popup/__container/popup__container.css);*/
+/*@import url(./blocks/popup/__occupation/popup__occupation.css);*/
+/*@import url(./blocks/popup/__submit-button/popup__submit-button.css);*/
+/*@import url(./blocks/popup/__close-button/popup__close-button.css);*/
+/*@import url(./blocks/popup/__close-button-image/popup__close-button-image.css);*/
+/*@import url(./blocks/popup/section-title/popup__title.css);*/
+/*@import url(./blocks/popup/_opened/popup_opened.css);*/
+/*@import url(./blocks/popup/__input/popup__input.css);*/
+/*@import url(./blocks/popup/__enlarged-photo/popup__enlarged-photo.css);*/
+/*@import url(./blocks/popup/__image-container/popup__image-container.css);*/
+/*@import url(./blocks/popup/__capture/popup__capture.css);*/
+/*@import url(./blocks/popup/_zoom/popup_zoom.css);*/
+/*@import url(./blocks/popup/__input-error/popup__input-error.css);*/
+/*@import url(./blocks/popup/__submit-button/_inactive/popup__submit-button_inactive.css);*/
+/*@import url(./blocks/popup/__input-error/_active/popup__input-error_active.css);*/
+/*@import url(./blocks/popup/_confirm-delete/popup_confirm-delete.css);*/
+
+/*@import url(./blocks/form/form.css);*/
+/*@import url(./blocks/form/__input/form__input.css);*/
+/*@import url(./blocks/form/__inputs/form__inputs.css);*/
+/*@import url(./blocks/form/section-title/form__title.css);*/
+/*@import url(./blocks/form/__submit-button/form__submit-button.css);*/
+
+/*@import url(./blocks/register/register.css);*/
+/*@import url(./blocks/register/__redirect-link/register__redirect-link.css);*/
+
+/*@import url(./blocks/login/login.css);*/
+
+/*@import url(./blocks/popup/__registration-icon/popup__registration-icon.css);*/
+/*@import url(./blocks/popup/__container/_centered/popup__container_centered.css);*/
+/*@import url(./blocks/popup/section-title/_centered/popup__title_centered.css);*/
