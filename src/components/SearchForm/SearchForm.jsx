@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-function SearchForm({ onSearch }) {
+function SearchForm({onSearch}) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchChange = (e) => {
@@ -14,14 +14,23 @@ function SearchForm({ onSearch }) {
 
   return (
     <form className="search-form" onSubmit={handleSearchSubmit}>
-      <input
-        type="text"
-        className="search-form__input"
-        placeholder="Фильм"
-        value={searchQuery}
-        onChange={handleSearchChange}
-      />
-      <button type="submit" className="search-form__button"></button>
+      <div className="search-form__container">
+        <input
+          type="text"
+          className="search-form__input"
+          placeholder="Фильм"
+          value={searchQuery}
+          onChange={handleSearchChange}>
+        </input>
+        <button type="submit" className="search-form__button button"></button>
+      </div>
+      <div className="search-form__checkbox-area">
+        <label className="search-form__switch">
+          <input className="search-form__checkbox" />
+            <span className="search-form__slider"></span>
+        </label>
+        <p className="search-form__checkbox-caption">Короткометражки</p>
+      </div>
     </form>
   );
 }

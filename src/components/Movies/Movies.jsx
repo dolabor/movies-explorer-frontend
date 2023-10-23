@@ -11,7 +11,7 @@ function Movies() {
     <div className="movies">
       <SearchForm />
       {/*<FilterCheckbox />*/}
-      {/*<Preloader />*/}
+      <Preloader />
       {/*<MoviesCardList />*/}
     </div>
   );
