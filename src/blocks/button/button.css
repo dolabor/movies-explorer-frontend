@@ -5,6 +5,7 @@
   border-style: none;
   border-color: transparent;
   border-image: none;
+  border-radius: 3px;
 }
 
 .button :hover {

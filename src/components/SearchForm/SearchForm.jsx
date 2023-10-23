@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm({onSearch}) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,13 +25,7 @@ function SearchForm({onSearch}) {
         </input>
         <button type="submit" className="search-form__button button"></button>
       </div>
-      <div className="search-form__checkbox-area">
-        <label className="search-form__switch">
-          <input className="search-form__checkbox" />
-            <span className="search-form__slider"></span>
-        </label>
-        <p className="search-form__checkbox-caption">Короткометражки</p>
-      </div>
+      <FilterCheckbox/>
     </form>
   );
 }

@@ -4,12 +4,25 @@ import {NavLink, useLocation} from "react-router-dom";
 
 function Header({isLoggedIn}) {
   const location = useLocation();
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <header className="header">
+    <header className={`header ${location.pathname === '/' ? 'header header_blue' : ''}`}>
       <img className="header__logo" src={headerLogo} alt="Логотип Movie Explorer"/>
 
-      {/*{isLoggedIn ? (*/}
+      {isLoggedIn ? (
         <div className="header__buttons">
           <div className="header__movies-area">
             <NavLink to="/movies" className="header__movies-link">
@@ -26,20 +39,20 @@ function Header({isLoggedIn}) {
             <div className="header__profile-icon"></div>
           </div>
         </div>
-      {/*) : (*/}
-      {/*  <div className="header__auth">*/}
-      {/*    /!*{location.pathname === '/signin' && (*!/*/}
-      {/*      <NavLink to="/signup" className="header__link">*/}
-      {/*        Регистрация*/}
-      {/*      </NavLink>*/}
-      {/*    /!*)}*!/*/}
-      {/*    /!*{location.pathname === '/signup' && (*!/*/}
-      {/*      <button to="/signin" className="header__login-button button">*/}
-      {/*        Войти*/}
-      {/*      </button>*/}
-      {/*    /!*)}*!/*/}
-      {/*  </div>*/}
-      {/*)}*/}
+      ) : (
+        <div className="header__auth">
+          {location.pathname === '/signin' && (
+            <NavLink to="/signup" className="header__link">
+              Регистрация
+            </NavLink>
+          )}
+          {location.pathname === '/signup' && (
+            <NavLink to="/signin" className="header__login-button button">
+              Войти
+            </NavLink>
+          )}
+        </div>
+      )}
     </header>
   );
 }
