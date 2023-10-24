@@ -2,6 +2,7 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import {movieSavedCards} from "../../utils/constants";
 
 function SavedMovies({isLoading}) {
 
@@ -11,7 +12,7 @@ function SavedMovies({isLoading}) {
       {isLoading ? (
         <Preloader />
       ) : (
-        <MoviesCardList />
+        <MoviesCardList movies={movieSavedCards}/>
       )}
     </div>
   );

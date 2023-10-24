@@ -1,22 +1,25 @@
 import React from "react";
 import headerLogo from '../../images/header-logo.svg';
+import burgerLogo from '../../images/burger-menu-icon.svg';
+
 import {NavLink, useLocation} from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
 
 function Header({isLoggedIn}) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-    window.addEventListener("resize", handleResize);
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isActive = (pathname) => {
+    return location.pathname === pathname;
+  };
 
   return (
     <header className={`header ${location.pathname === '/' ? 'header header_blue' : ''}`}>
@@ -24,22 +27,32 @@ function Header({isLoggedIn}) {
         <img className="header__logo" src={headerLogo} alt="Логотип Movie Explorer"/>
       </NavLink>
       {isLoggedIn ? (
-        <div className="header__buttons">
-          <div className="header__movies-area">
-            <NavLink to="/movies" className="header__movies-link">
-              Фильмы
-            </NavLink>
-            <NavLink to="/saved-movies" className="header__movies-link">
-              Сохранённые фильмы
-            </NavLink>
+        <>
+          <div className="header__buttons">
+            <div className="header__movies-area">
+              <NavLink
+                to="/movies"
+                className={`header__movies-link ${isActive('/movies') ? 'header__movies-link_active' : ''}`}>
+                Фильмы
+              </NavLink>
+              <NavLink
+                to="/saved-movies"
+                className={`header__movies-link ${isActive('/saved-movies') ? 'header__movies-link_active' : ''}`}>
+                Сохраненные фильмы
+              </NavLink>
+            </div>
+            <div className="header__profile">
+              <NavLink to="/profile" className="header__link">
+                Аккаунт
+              </NavLink>
+              <div className="header__profile-icon"></div>
+            </div>
           </div>
-          <div className="header__profile">
-            <NavLink to="/profile" className="header__link">
-              Аккаунт
-            </NavLink>
-            <div className="header__profile-icon"></div>
-          </div>
-        </div>
+          <button className="header__burger-button button" onClick={toggleMenu}>
+            <img className="header__burger-icon" src={burgerLogo} alt="Логотип Movie Explorer"/>
+          </button>
+          <Navigation isOpen={isMenuOpen} onClose={closeMenu}/>
+        </>
       ) : (
         <div className="header__auth">
           {location.pathname === '/signin' && (

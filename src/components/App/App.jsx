@@ -9,12 +9,13 @@ import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import Navigation from "../Navigation/Navigation";
 
 function App(props) {
   let header = useRoutes([
-    {path: "/", element: <Header/>,},
-    {path: "/movies", element: <Header/>},
-    {path: "/saved-movies", element: <Header/>},
+    {path: "/", element: <Header isLoggedIn={true}/>,},
+    {path: "/movies", element: <Header isLoggedIn={true}/>},
+    {path: "/saved-movies", element: <Header isLoggedIn={true}/>},
   ]);
 
   let footer = useRoutes([
@@ -27,6 +28,10 @@ function App(props) {
     <div>
       {header}
       <Routes>
+        <Route
+          path="/side"
+          element={<Navigation />}
+        />
         <Route
           path="/"
           element={<Main/>}

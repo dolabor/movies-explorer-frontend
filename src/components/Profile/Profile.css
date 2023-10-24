@@ -6,7 +6,7 @@
   background-color: #202020;
 }
 
-.profile__data {
+.profile__top {
   display: grid;
   grid-template-rows: max-content max-content;
   width: 100%;
@@ -60,6 +60,25 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.profile__save-button {
+  width: 100%;
+  background-color: #3456F3;
+  padding: 15px 0;
+  text-align: center;
+  color: #FFF;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile__input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  text-align: end;
 }
 
 .profile__info {

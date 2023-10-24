@@ -85,3 +85,29 @@ export const movieInitialCards = [
   },
 ];
 
+export const movieSavedCards = [
+  {
+    id: 1,
+    title: "33 слова о дизайне",
+    duration: "1ч 47м",
+    image: "/static/33-words.png",
+    isLiked: true,
+  },
+  {
+    id: 2,
+    title: "Киноальманах «100 лет дизайна»",
+    duration: "1ч 47м",
+    image: "/static/100-years-of-design.png",
+    isLiked: false,
+  },
+  {
+    id: 3,
+    title: "В погоне за Бенкси",
+    duration: "1ч 47м",
+    image: "/static/chasing-benksy.png",
+    isLiked: false,
+  },
+];
+
+
+

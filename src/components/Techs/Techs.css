@@ -2,6 +2,12 @@
   background-color: #272727;
 }
 
+.techs__description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .techs__caption {
   margin-block-start: 0;
   margin-block-end: 0;
@@ -11,6 +17,7 @@
   font-weight: 400;
   line-height: 16px;
   letter-spacing: -0.44px;
+  width: 100%;
 }
 
 .techs__heading {
@@ -45,6 +52,7 @@
   max-width: 100%;
   box-sizing: border-box;
   display: grid;
+  justify-content: center;
 }
 
 @media (min-width: 320px) {
@@ -108,7 +116,8 @@
     font-size: 14px;
     line-height: 20px;
     letter-spacing: -0.56px;
-    padding: 22px 450px 0 450px;
+    padding: 22px 0 0 0;
+    max-width: 460px;
   }
 
   .techs__list {

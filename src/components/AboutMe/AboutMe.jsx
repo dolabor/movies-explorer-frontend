@@ -1,10 +1,11 @@
 import React from "react";
 import AboutMePhoto from '../../images/about-me-photo.jpg';
+import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutMe() {
   return (
     <section className="about-me">
-      <h2 className="section-title">Студент</h2>
+      <SectionTitle title="Студент"/>
       <div className="about-me__info">
         <div className="about-me__description">
           <div className="about-me__text">
