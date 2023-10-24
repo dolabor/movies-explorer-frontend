@@ -3,18 +3,18 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({isLoading}) {
+function SavedMovies({isLoading}) {
 
   return (
     <div className="movies">
-      <SearchForm/>
+      <SearchForm />
       {isLoading ? (
-        <Preloader/>
+        <Preloader />
       ) : (
-        <MoviesCardList/>
+        <MoviesCardList />
       )}
     </div>
   );
 }
 
-export default Movies;
+export default SavedMovies;

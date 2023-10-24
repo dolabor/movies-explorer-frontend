@@ -1,21 +1,26 @@
-import React from "react";
-import likeIcon from "../images/like.svg";
+import React from 'react';
+import {useLocation} from "react-router-dom";
 
-function MoviesCard() {
+function MoviesCard({title, duration, poster, isLiked}) {
+  const cardLikeButtonClassName = (
+    `movies-card__like-button ${isLiked && 'movies-card__like-button_liked'}`
+  );
+  const location = useLocation();
 
   return (
-    <section className="movies-card-list">
-      <img className="movies-card-list__image"
-           id="movies-card-list__image"
-           // src={card.link}
-           // alt={`Фотография ${card.name}`}
-           // onClick={() => onCardClick({name: card.name, link: card.link})}
-      />
+    <div className="movies-card">
+      <img src={poster} alt="Постер фильма" className="movies-card__image"/>
+      <div className="movies-card__intro">
+        <h2 className="movies-card__title">{title}</h2>
 
-      <div className="movies-card-list__caption">
-        <h2 className="movies-card-list__name" id="movies-card-list__name">{card.name}</h2>
+        {location.pathname === '/saved-movies' ? (
+          <button className="button movies-card__delete-button"></button>
+        ) : (
+          <button className={`button ${cardLikeButtonClassName}`}></button>
+        )}
       </div>
-    </section>
+      <p className="movies-card__duration">{duration}</p>
+    </div>
   );
 }
 

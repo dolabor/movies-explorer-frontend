@@ -4,7 +4,7 @@ import {NavLink, useLocation} from "react-router-dom";
 
 function Header({isLoggedIn}) {
   const location = useLocation();
-    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -20,8 +20,9 @@ function Header({isLoggedIn}) {
 
   return (
     <header className={`header ${location.pathname === '/' ? 'header header_blue' : ''}`}>
-      <img className="header__logo" src={headerLogo} alt="Логотип Movie Explorer"/>
-
+      <NavLink to="/" className="header__logo-link">
+        <img className="header__logo" src={headerLogo} alt="Логотип Movie Explorer"/>
+      </NavLink>
       {isLoggedIn ? (
         <div className="header__buttons">
           <div className="header__movies-area">

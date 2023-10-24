@@ -6,6 +6,9 @@
   border-color: transparent;
   border-image: none;
   border-radius: 3px;
+  padding-block: 0;
+  padding-inline: 0;
+  background-color: transparent;
 }
 
 .button :hover {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useRoutes} from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -8,28 +8,34 @@ import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
-import {useLocation} from 'react-router-dom';
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App(props) {
-  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  // const [currentUser, setCurrentUser] = React.useState({});
+  let header = useRoutes([
+    {path: "/", element: <Header/>,},
+    {path: "/movies", element: <Header/>},
+    {path: "/saved-movies", element: <Header/>},
+  ]);
+
+  let footer = useRoutes([
+    {path: "/", element: <Footer/>,},
+    {path: "/movies", element: <Footer/>},
+    {path: "/saved-movies", element: <Footer/>},
+  ]);
 
   return (
     <div>
+      {header}
       <Routes>
         <Route
           path="/"
-          element={<Header isLoggedIn={true}/>}>
-          <Route
-            path="/"
-            element={<Main/>}
-          />
-          <Route
-            path="/movies"
-            element={<Movies/>}
-          />
-          {/*<Route path="/saved-movies" element={<SavedMovies/>}/>*/}
-        </Route>
+          element={<Main/>}
+        />
+        <Route
+          path="/movies"
+          element={<Movies isLoading={false}/>}
+        />
+        <Route path="/saved-movies" element={<SavedMovies isLoading={false}/>}/>
         <Route
           path="/signup"
           element={<Register/>}
@@ -46,22 +52,10 @@ function App(props) {
           path="*"
           element={<NotFound/>}
         />
-        <Route
-          path="/"
-          element={<Footer/>}>
-          <Route
-            path="/"
-            element={<Main/>}
-          />
-          <Route
-            path="/movies"
-            element={<Movies/>}
-          />
-          {/*<Route path="/saved-movies" element={<SavedMovies/>}/>*/}
-        </Route>
       </Routes>
+      {footer}
     </div>
-  );
+  )
 }
 
 export default App;
