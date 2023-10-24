@@ -29,10 +29,6 @@ function App(props) {
       {header}
       <Routes>
         <Route
-          path="/side"
-          element={<Navigation />}
-        />
-        <Route
           path="/"
           element={<Main/>}
         />
