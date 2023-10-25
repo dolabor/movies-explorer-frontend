@@ -31,16 +31,17 @@
 .techs__item {
   border-radius: 10px;
   background-color: #303030;
-  padding: 21px 16px;
-  text-align: center;
+  /*padding: 21px 16px;*/
+  display: flex;
+  width: 100%;
+  align-items: center;
   box-sizing: border-box;
   color: #FFF;
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.48px;
-  min-width: 84px;
-  min-height: 57px;
+  justify-content: center;
 }
 
 .techs__list {
@@ -101,7 +102,7 @@
 
   .techs__list {
     padding: 83px 60px 0 60px;
-    grid-template-rows: 1fr;
+    grid-template-rows: repeat(1, 60px);
     grid-template-columns: repeat(7, 1fr);
     justify-items: center;
   }
@@ -112,15 +113,25 @@
     padding: 0 70px 100px 70px;
   }
 
+  .techs__content {
+    margin: 0 auto;
+    max-width: 1280px;
+  }
+
   .techs__caption {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: -0.56px;
-    padding: 22px 0 0 0;
+    padding: 25px 0 0 0;
     max-width: 460px;
   }
 
   .techs__list {
-    padding: 100px 295px 0 295px;
+    padding: 100px 0 0 0;
+    grid-template-columns: repeat(7, 90px);
+  }
+
+  .techs__heading {
+    padding-top: 92px;
   }
 }

@@ -7,27 +7,23 @@ function Profile() {
   const initialValues = {
     name: "Василий",
     email: "pochta@yandex.ru",
+    password: ""
   };
-  const {values, handleChange, setValues, errors, isValid} = useFormValidation(initialValues);
+
+  const {values, handleChange, errors, isValid} = useFormValidation(initialValues);
 
   const handleEditClick = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
-
-  React.useEffect(() => {
-    setValues({
-      name: "Василий",
-      email: "pochta@yandex.ru",
-    });
-  }, [setValues]);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
+    setIsEditing(false);
   };
 
   return (
     <section className="profile">
-      <h2 className="profile__title">Привет, {values.name}!</h2>
+      <h1 className="profile__title">Привет, {values.name}!</h1>
       {isEditing ? (
         <div className="profile__top">
           <form className="profile__details" onSubmit={handleSubmitForm}>
@@ -44,7 +40,7 @@ function Profile() {
             <div className="profile__line"></div>
             <div className="profile__info">
               <p className="profile__text">E-mail</p>
-             <input
+              <input
                 className="profile__text profile__input"
                 type="email"
                 name="email"

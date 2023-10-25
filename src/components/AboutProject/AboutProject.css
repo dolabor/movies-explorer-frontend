@@ -147,10 +147,26 @@
 @media (min-width: 1280px) {
   .about-project {
     padding: 0 70px 100px 70px;
+    max-width: 1280px;
+    margin: auto;
+  }
+
+  .about-project__summary {
+    max-width: 550px;
   }
 
   .about-project__caption {
     font-weight: 500;
+  }
+
+  .about-project__backend-scale {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .about-project__frontend-scale {
+    font-size: 14px;
+    padding: 10px 14px;
   }
 
   .about-project__description {

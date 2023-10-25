@@ -1,6 +1,14 @@
 .navtab {
   background-color: #272727;
   width: 100%;
+}
+
+.navtab__list {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -14,6 +22,10 @@
   cursor: pointer;
 }
 
+.navtab__link:hover {
+  opacity: 0.7;
+}
+
 @media (min-width: 320px) {
   .navtab {
     gap: 24px;
@@ -23,12 +35,20 @@
   .navtab__link {
     font-size: 11px;
   }
+
+  .navtab__list {
+    gap: 24px;
+  }
 }
 
 @media (min-width: 768px) {
   .navtab {
     gap: 40px;
     padding: 24px 0;
+  }
+
+  .navtab__list {
+    gap: 40px;
   }
 
   .navtab__link {

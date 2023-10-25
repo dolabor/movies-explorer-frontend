@@ -7,14 +7,14 @@ import {movieSavedCards} from "../../utils/constants";
 function SavedMovies({isLoading}) {
 
   return (
-    <div className="movies">
+    <section className="movies">
       <SearchForm />
       {isLoading ? (
         <Preloader />
       ) : (
         <MoviesCardList movies={movieSavedCards}/>
       )}
-    </div>
+    </section>
   );
 }
 

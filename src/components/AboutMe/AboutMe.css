@@ -19,7 +19,7 @@
 
 .about-me__info {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column-reverse;
   padding: 60px 0 0 0;
 }
@@ -135,6 +135,8 @@
 @media (min-width: 1280px) {
   .about-me {
     padding: 0 70px 100px 70px;
+    max-width: 1280px;
+    margin: auto;
   }
 
   .about-me__details {
@@ -147,6 +149,7 @@
     font-size: 14px;
     line-height: 22px;
     padding: 26px 0 0 0;
+    min-width: 600px;
   }
 
   .about-me__name {

@@ -1,65 +1,62 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({movies}) {
+function MoviesCardList({ movies }) {
   const [visibleCards, setVisibleCards] = useState(5);
-  const [allCards, setAllCards] = useState([]);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
 
-  const maxMovies = currentCards.length + visibleCards;
-
   useEffect(() => {
-    const handleWindowResize = () => {
-      if (window.innerWidth >= 1280) {
-        setVisibleCards(4);
-      } else if (window.innerWidth >= 768) {
-        setVisibleCards(8);
-      } else {
-        setVisibleCards(5);
-      }
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-    return () => window.removeEventListener('resize', handleWindowResize);
-  }, []);
-
-  useEffect(() => {
-    setAllCards(movies);
     setCurrentCards(movies.slice(0, visibleCards));
   }, [movies, visibleCards]);
 
   const handleShowMore = () => {
     const nextRowStart = currentCards.length;
     const nextRowEnd = nextRowStart + visibleCards;
-    const nextRow = allCards.slice(nextRowStart, nextRowEnd);
+    const nextRow = movies.slice(nextRowStart, nextRowEnd);
 
     setCurrentCards([...currentCards, ...nextRow]);
 
-    if (nextRowEnd >= allCards.length) {
+    if (nextRowEnd >= movies.length) {
       setShowMoreVisible(false);
     }
   };
 
+  const handleWindowResize = () => {
+    if (window.innerWidth >= 1280) {
+      setVisibleCards(12);
+    } else if (window.innerWidth >= 768) {
+      setVisibleCards(8);
+    } else {
+      setVisibleCards(5);
+    }
+  };
+
+  useEffect(() => {
+    handleWindowResize();
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
   return (
     <section className="movies-card-list">
-      <div className="movies-card-list__grid">
-        {movies.map((movie, cardNumber) => {
-          if (cardNumber < maxMovies) {
-            return (
-              <MoviesCard
-                key={movie.id}
-                title={movie.title}
-                duration={movie.duration}
-                poster={movie.image}
-                isLiked={movie.isLiked}
-              />
-            );
-          }
-        })}
-      </div>
-      {maxMovies < allCards.length && (
-        <button className="movies-card-list__more-button button" onClick={handleShowMore}>
+      <ul className="movies-card-list__grid">
+        {currentCards.map((movie, cardNumber) => (
+          <li key={movie.id} className="movies-card-list__item">
+            <MoviesCard
+              title={movie.title}
+              duration={movie.duration}
+              poster={movie.image}
+              isLiked={movie.isLiked}
+            />
+          </li>
+        ))}
+      </ul>
+      {visibleCards < movies.length && showMoreVisible && (
+        <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
           Еще
         </button>
       )}

@@ -1,10 +1,18 @@
 .header {
   display: flex;
-  padding: 0;
   background-color: #202020;
-  justify-content: space-between;
+  justify-content: center;
   border: none;
   position: relative;
+  min-height: 74px;
+  padding: 0 70px;
+}
+
+.header__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
 }
 
 .header__burger-icon {
@@ -26,11 +34,11 @@
 }
 
 .header__buttons {
-  display: flex;
+  display: none;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   padding-left: 45px;
+  justify-content: flex-end;
 }
 
 .header__link {
@@ -38,7 +46,8 @@
   text-align: right;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px;
+  line-height: 13px;
+  font-size: 13px;
   text-decoration: none;
 }
 
@@ -101,65 +110,11 @@
   margin: 3px 3px 3px 7px;
 }
 
-@media (min-width: 320px) {
-  .header {
-    padding: 0 14px;
-  }
-
-  .header__buttons {
-    display: none;
-  }
-
-  .header__burger-button {
-    display: block;
-  }
-
-  .header__auth {
-    gap: 14px;
-  }
-
-  .header__link {
-    font-size: 10px;
-  }
-
-  .header__login-button {
-    padding: 5px 12px;
-    font-size: 10px;
-  }
-}
-
-@media (min-width: 768px) {
-  .header {
-    padding: 0 30px;
-  }
-
-  .header__auth {
-    gap: 30px;
-  }
-
-  .header__link {
-    font-size: 12px;
-  }
-
-  .header__login-button {
-    font-size: 12px;
-    padding: 8px 20px;
-  }
-
-  .header__buttons {
-    display: none;
-  }
-
-  .header__movies-area {
-    display: flex;
-  }
+.header__burger-button {
+  display: block;
 }
 
 @media (min-width: 1280px) {
-  .header {
-    min-height: 74px;
-    padding: 0 70px;
-  }
 
   .header__burger-button {
     display: none;

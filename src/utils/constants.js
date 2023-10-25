@@ -83,6 +83,27 @@ export const movieInitialCards = [
     image: "/static/on-waves.png",
     isLiked: false,
   },
+    {
+    id: 13,
+    title: "Соберись перед прыжком",
+    duration: "1ч 47м",
+    image: "/static/focus-before-jumping.png",
+    isLiked: true,
+  },
+  {
+    id: 14,
+    title: "Пи Джей Харви: A dog called money",
+    duration: "1ч 47м",
+    image: "/static/pj-harvey.png",
+    isLiked: false,
+  },
+  {
+    id: 15,
+    title: "По волнам: Искусство звука в кино",
+    duration: "1ч 47м",
+    image: "/static/on-waves.png",
+    isLiked: false,
+  },
 ];
 
 export const movieSavedCards = [

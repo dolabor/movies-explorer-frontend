@@ -4,7 +4,8 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 function Techs({id}) {
   return (
     <section className="techs" id={id}>
-      <SectionTitle title="Технологии"/>
+      <div className="techs__content">
+        <SectionTitle title="Технологии"/>
       <div className="techs__description">
         <h3 className="techs__heading">7 технологий</h3>
         <p className="techs__caption">На&nbsp;курсе&nbsp;веб-разработки мы&nbsp;освоили&nbsp;технологии,
@@ -19,6 +20,7 @@ function Techs({id}) {
         <li className="techs__item">Express.js</li>
         <li className="techs__item">mongoDB</li>
       </ul>
+      </div>
     </section>
   );
 }

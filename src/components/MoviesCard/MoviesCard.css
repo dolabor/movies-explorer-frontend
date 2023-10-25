@@ -23,7 +23,7 @@
 
 .movies-card__title {
   color: #FFF;
-  font-size: 12px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -94,7 +94,7 @@
   }
 
   .movies-card__intro {
-    padding: 16px;
+    padding: 10px 16px 10px 16px;
   }
 
   .movies-card__duration {

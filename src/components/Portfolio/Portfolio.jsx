@@ -1,5 +1,4 @@
 import React from "react";
-import portfolioArrow from "../../images/portfolio-arrow.svg";
 
 function Portfolio() {
   return (
@@ -10,21 +9,21 @@ function Portfolio() {
           <a className="portfolio__link" href="https://github.com/dolabor/russian-travel.git"
              target="_blank" rel="noreferrer">
             <p className="portfolio__item-text">Статичный сайт</p>
-            <img className="portfolio__icon" src={portfolioArrow} alt="Иконка стрелки"/>
+            <p className="portfolio__icon">↗</p>
           </a>
         </li>
         <li className="portfolio__item">
           <a className="portfolio__link" href="https://github.com/dolabor/how-to-learn.git"
              target="_blank" rel="noreferrer">
             <p className="portfolio__item-text">Адаптивный сайт</p>
-            <img className="portfolio__icon" src={portfolioArrow} alt="Иконка стрелки"/>
+            <p className="portfolio__icon">↗</p>
           </a>
         </li>
         <li className="portfolio__item">
           <a className="portfolio__link" href="https://github.com/dolabor/react-mesto-api-full-gha.git"
              target="_blank" rel="noreferrer">
             <p className="portfolio__item-text">Одностраничное приложение</p>
-            <img className="portfolio__icon" src={portfolioArrow} alt="Иконка стрелки"/>
+            <p className="portfolio__icon">↗</p>
           </a>
         </li>
       </ul>

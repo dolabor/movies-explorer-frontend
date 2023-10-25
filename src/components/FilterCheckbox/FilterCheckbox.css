@@ -70,7 +70,7 @@
   font-style: normal;
   font-weight: 400;
   margin-block-start: 0;
-    margin-block-end: 0;
+  margin-block-end: 0;
 }
 
 @media (min-width: 320px) {
@@ -94,9 +94,5 @@
 @media (min-width: 1280px) {
   .filter-checkbox {
     padding: 41px 0 69px 0;
-  }
-
-  .filter-checkbox__caption {
-    font-size: 11px;
   }
 }

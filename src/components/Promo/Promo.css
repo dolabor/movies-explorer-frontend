@@ -22,7 +22,7 @@
   margin-block-start: 0;
   margin-block-end: 0;
   position: absolute;
-  top: 50%;
+  top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -58,5 +58,9 @@
 @media (min-width: 1280px) {
   .promo__landing-logo {
     padding: 82px 480px 122px 480px;
+  }
+
+  .promo__title {
+    max-width: 730px;
   }
 }

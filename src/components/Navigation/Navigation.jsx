@@ -11,10 +11,10 @@ function Navigation({isOpen, onClose}) {
 
   return (
     isOpen ? (
-      <>
+      <section>
         <div className="navigation__overlay" onClick={onClose}></div>
-        <section className="navigation">
-          <button className="navigation__close-button button" onClick={onClose}>
+        <div className="navigation">
+          <button className="navigation__close-button button" type="button" onClick={onClose}>
             <img className="navigation__close-icon" src={closeMenuButton} alt="Кнопка закрытия меню"/>
           </button>
           <div className="navigation__content">
@@ -42,8 +42,8 @@ function Navigation({isOpen, onClose}) {
               <div className="navigation__profile-icon"></div>
             </div>
           </div>
-        </section>
-      </>
+        </div>
+      </section>
     ) : ""
   );
 }
