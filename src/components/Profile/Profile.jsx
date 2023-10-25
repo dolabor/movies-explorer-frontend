@@ -1,38 +1,59 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import useFormValidation from "../../hooks/useFormValidation";
 
-function Profile({userName, userEmail}) {
+function Profile() {
   const [isEditing, setIsEditing] = React.useState(false);
-  const [name, setName] = React.useState('John Doe');
-  const [email, setEmail] = React.useState('john@example.com');
+  const initialValues = {
+    name: "Василий",
+    email: "pochta@yandex.ru",
+  };
+  const {values, handleChange, setValues, errors, isValid} = useFormValidation(initialValues);
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
-    setIsEditing(false);
+  React.useEffect(() => {
+    setValues({
+      name: "Василий",
+      email: "pochta@yandex.ru",
+    });
+  }, [setValues]);
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
   };
 
   return (
     <section className="profile">
-      <h2 className="profile__title">Привет, {userName}!</h2>
+      <h2 className="profile__title">Привет, {values.name}!</h2>
       {isEditing ? (
         <div className="profile__top">
-          <div className="profile__details">
+          <form className="profile__details" onSubmit={handleSubmitForm}>
             <div className="profile__info">
               <p className="profile__text">Имя</p>
-              <input className="profile__text profile__input" type="name"
-                     value={userName} onChange={(e) => setName(e.target.value)}/>
+              <input
+                className="profile__text profile__input"
+                type="text"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+              />
             </div>
             <div className="profile__line"></div>
             <div className="profile__info">
               <p className="profile__text">E-mail</p>
-              <input className="profile__text profile__input" type="email"
-                     value={userEmail} onChange={(e) => setEmail(e.target.value)}/>
+             <input
+                className="profile__text profile__input"
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+              />
             </div>
-          </div>
-          <button className="profile__save-button button" type="submit" onClick={handleSaveClick}>Сохранить</button>
+          </form>
+          <button className="profile__save-button button" type="submit">Сохранить</button>
         </div>
       ) : (
         <>
@@ -40,12 +61,12 @@ function Profile({userName, userEmail}) {
             <div className="profile__details">
               <div className="profile__info">
                 <p className="profile__text">Имя</p>
-                <p className="profile__text">{userName}</p>
+                <p className="profile__text">{values.name}</p>
               </div>
               <div className="profile__line"></div>
               <div className="profile__info">
                 <p className="profile__text">E-mail</p>
-                <p className="profile__text">{userEmail}</p>
+                <p className="profile__text">{values.email}</p>
               </div>
             </div>
           </div>

@@ -2,9 +2,9 @@ import React from "react";
 import AboutMePhoto from '../../images/about-me-photo.jpg';
 import SectionTitle from "../SectionTitle/SectionTitle";
 
-function AboutMe() {
+function AboutMe({id}) {
   return (
-    <section className="about-me">
+    <section className="about-me" id={id}>
       <SectionTitle title="Студент"/>
       <div className="about-me__info">
         <div className="about-me__description">

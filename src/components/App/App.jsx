@@ -10,6 +10,9 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Navigation from "../Navigation/Navigation";
+import AboutProject from "../AboutProject/AboutProject";
+import Techs from "../Techs/Techs";
+import AboutMe from "../AboutMe/AboutMe";
 
 function App(props) {
   let header = useRoutes([
@@ -47,7 +50,7 @@ function App(props) {
         />
         <Route
           path="/profile"
-          element={<Profile userName="Виталий" userEmail="pochta@yandex.ru"/>}
+          element={<Profile />}
         />
         <Route
           path="*"
