@@ -127,7 +127,20 @@
 }
 
 @media (min-width: 1280px) {
+  .movies-card__intro {
+    padding: 10px 16px;
+  }
+
+  .movies-card__image {
+    height: 203px;
+  }
+
+  .movies-card__title {
+    line-height: normal;
+  }
+
   .movies-card__duration {
     font-size: 11px;
+    padding: 0 16px 16px;
   }
 }
