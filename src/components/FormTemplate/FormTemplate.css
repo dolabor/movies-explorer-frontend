@@ -113,8 +113,7 @@
 }
 
 .form__input:focus {
-  outline: none;
-  border: 1px solid #3DDC84;
+  outline: 1px solid #3DDC84;
 }
 
 .form__input-label {
