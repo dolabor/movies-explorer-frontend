@@ -22,7 +22,7 @@ function Profile() {
   };
 
   return (
-    <section className="profile">
+    <main className="profile">
       <h1 className="profile__title">Привет, {values.name}!</h1>
       {isEditing ? (
         <div className="profile__top">
@@ -72,11 +72,11 @@ function Profile() {
           </div>
           <div className="profile__bottom">
             <button className="profile__link button" onClick={handleEditClick}>Редактировать</button>
-            <Link className="profile__link profile__link_red" to="/signout">Выйти из аккаунта</Link>
+            <Link className="profile__link profile__link_red" to="/">Выйти из аккаунта</Link>
           </div>
         </>
       )}
-    </section>
+    </main>
   );
 }
 

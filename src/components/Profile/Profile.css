@@ -137,7 +137,11 @@
   }
 
   .profile__title {
-    padding-bottom: 70px;
+    padding-bottom: 80px;
+  }
+
+  .profile__top {
+    min-height: 441px;
   }
 }
 

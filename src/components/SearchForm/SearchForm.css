@@ -49,6 +49,7 @@
 
   .search-form__input {
     font-size: 11px;
+    padding: 14px 0 14px 19px;
   }
 }
 
@@ -75,6 +76,6 @@
   }
 
   .search-form__input {
-    padding: 14px 0 14px 19px;
+    padding: 14px 0 14px 22px;
   }
 }

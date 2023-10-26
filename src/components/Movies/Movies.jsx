@@ -7,14 +7,14 @@ import {movieInitialCards} from "../../utils/constants";
 function Movies({isLoading}) {
 
   return (
-    <section className="movies">
+    <main className="movies">
       <SearchForm/>
       {isLoading ? (
         <Preloader/>
       ) : (
         <MoviesCardList movies={movieInitialCards}/>
       )}
-    </section>
+    </main>
   );
 }
 

@@ -55,6 +55,12 @@
 @media (min-width: 320px) {
   .not-found {
     padding-bottom: 30px;
+    padding-top: 330px;
+    min-height: 780px;
+  }
+
+  .not-found__caption {
+    gap: 10px;
   }
 
   .not-found__title {
@@ -74,6 +80,11 @@
   .not-found {
     padding-bottom: 60px;
     min-height: 208px;
+    padding-top: 0;
+  }
+
+  .not-found__caption {
+    gap: 5px;
   }
 
   .not-found__title {

@@ -8,7 +8,7 @@ const Login = ({onAuthorization}) => {
   }
 
   return (
-    <section className="login">
+    <main className="login">
       <FormTemplate
         formTitle="Рады видеть!"
         titleButton="Войти"
@@ -19,7 +19,7 @@ const Login = ({onAuthorization}) => {
         nameForm="signin"
       >
       </FormTemplate>
-    </section>
+    </main>
   )
 }
 

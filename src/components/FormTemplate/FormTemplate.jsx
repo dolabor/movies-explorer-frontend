@@ -7,7 +7,7 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
   const {values, errors, isValid, handleChange} = useFormValidation({});
 
   return (
-    <section className="form__template">
+    <section className="form">
       <NavLink to="/" className="form__logo-link">
         <img className="form__logo" src={formLogo} alt="Логотип Movies Explorer"/>
       </NavLink>
@@ -30,7 +30,7 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
                   type="name"
                   value={values.name || ''}
                   onChange={handleChange}
-                  placeholder="Имя"
+                  placeholder="Виталий"
                   required
                 />
                 <span
@@ -56,7 +56,7 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
                 id="email"
                 name="email"
                 type="email"
-                placeholder="E-mail"
+                placeholder="pochta@yandex.ru|"
                 value={values.email || ''}
                 onChange={handleChange}
                 required

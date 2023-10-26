@@ -7,7 +7,7 @@ import {movieSavedCards} from "../../utils/constants";
 function SavedMovies({isLoading}) {
 
   return (
-    <section className="saved-movies">
+    <main className="saved-movies">
       <SearchForm />
       {isLoading ? (
         <Preloader />
@@ -15,7 +15,7 @@ function SavedMovies({isLoading}) {
         <MoviesCardList movies={movieSavedCards}/>
       )}
         <div className="saved-movies__divider"></div>
-    </section>
+    </main>
   );
 }
 

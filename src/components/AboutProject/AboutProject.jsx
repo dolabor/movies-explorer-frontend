@@ -17,11 +17,11 @@ function AboutProject({id}) {
       </div>
       <div className="about-project__timeline">
         <div className="about-project__backend-stage">
-          <div className="about-project__backend-scale">1 неделя</div>
+          <p className="about-project__backend-scale">1 неделя</p>
           <p className="about-project__caption">Back-end</p>
         </div>
         <div className="about-project__frontend-stage">
-          <div className="about-project__frontend-scale">4 недели</div>
+          <p className="about-project__frontend-scale">4 недели</p>
           <p className="about-project__caption">Front-end</p>
         </div>
       </div>

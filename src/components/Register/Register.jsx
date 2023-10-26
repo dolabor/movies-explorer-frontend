@@ -4,7 +4,7 @@ import FormTemplate from "../FormTemplate/FormTemplate";
 const Register = () => {
 
   return (
-    <section className="register">
+    <main className="register">
       <FormTemplate
         formTitle="Добро пожаловать!"
         titleButton="Зарегистрироваться"
@@ -14,7 +14,7 @@ const Register = () => {
         nameForm="signup"
       >
       </FormTemplate>
-    </section>
+    </main>
   )
 }
 

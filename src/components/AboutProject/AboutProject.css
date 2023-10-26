@@ -11,6 +11,8 @@
   font-weight: 400;
   width: 100%;
   box-sizing: border-box;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .about-project__backend-stage {
@@ -25,6 +27,8 @@
   text-align: center;
   font-weight: 400;
   margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .about-project__description {
@@ -47,6 +51,8 @@
   font-weight: 400;
   width: 100%;
   box-sizing: border-box;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .about-project__frontend-stage {
@@ -77,6 +83,7 @@
   .about-project__backend-scale {
     min-height: 35px;
     min-width: 100px;
+    padding: 12px 10px 10px 10px;
   }
 
   .about-project__caption {
@@ -88,7 +95,7 @@
   .about-project__description {
     gap: 58px;
     flex-direction: column;
-    padding: 61px 0;
+    padding: 62px 0 59px 0;
   }
 
   .about-project__detail {
@@ -98,12 +105,13 @@
 
   .about-project__frontend-scale {
     min-height: 35px;
+    padding: 12px 10px 11px 10px;
   }
 
   .about-project__label {
     font-size: 18px;
     letter-spacing: -0.72px;
-    padding-bottom: 16px;
+    padding-bottom: 17px;
   }
 }
 
@@ -154,6 +162,7 @@
     padding: 0 70px 100px 70px;
     max-width: 1280px;
     margin: auto;
+    box-sizing: border-box;
   }
 
   .about-project__summary {
