@@ -15,6 +15,7 @@ function App(props) {
     {path: "/", element: <Header isLoggedIn={true}/>,},
     {path: "/movies", element: <Header isLoggedIn={true}/>},
     {path: "/saved-movies", element: <Header isLoggedIn={true}/>},
+    {path: "/profile", element: <Header isLoggedIn={true}/>},
   ]);
 
   let footer = useRoutes([

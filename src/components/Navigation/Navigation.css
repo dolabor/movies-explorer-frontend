@@ -32,8 +32,8 @@
 }
 
 .navigation__close-icon {
-  width: 22px;
-  height: 22px;
+  width: 32px;
+  height: 32px;
 }
 
 .navigation__buttons {
@@ -100,7 +100,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 38px;
 }
 
 .navigation__profile {
@@ -121,9 +121,10 @@
 
 @media (min-width: 768px) {
   .navigation {
-    padding: 20% 90px 90px;
+    padding: 165px 90px 90px;
     box-sizing: border-box;
     width: 520px;
+    min-height: 720px;
   }
 }
 

@@ -78,15 +78,19 @@
     padding: 43px 0 50px 0;
     gap: 13px;
   }
+
+  .filter-checkbox__caption {
+    font-size: 11px;
+  }
 }
 
 @media (min-width: 768px) {
   .filter-checkbox {
-    padding: 42px 0 51px 0;
+    padding: 42px 0 49px 0;
     gap: 12px;
   }
 
-  .filter-checkbox__caption {
+   .filter-checkbox__caption {
     font-size: 14px;
   }
 }

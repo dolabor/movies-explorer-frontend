@@ -47,7 +47,7 @@
   .movies-card-list__grid {
     grid-template-columns: repeat(2, min-content);
     grid-template-rows: repeat(auto-fit, 1fr);
-    padding: 70px 0 80px 0;
+    padding: 70px 0 78px 0;
     gap: 30px;
   }
 }

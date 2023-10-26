@@ -14,7 +14,6 @@
   align-items: center;
   gap: 5px;
   justify-content: center;
-  flex: 1;
 }
 
 .not-found__title {
@@ -74,10 +73,12 @@
 @media (min-width: 768px) {
   .not-found {
     padding-bottom: 60px;
+    min-height: 208px;
   }
 
   .not-found__title {
     font-size: 140px;
+    padding-top: 408px;
   }
 
   .not-found__description {
@@ -86,5 +87,13 @@
 
   .not-found__button {
     font-size: 14px;
+    padding-top: 184px;
   }
 }
+
+@media (min-width: 1280px) {
+  .not-found__title {
+    padding-top: 246px;
+  }
+}
+

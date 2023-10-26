@@ -117,6 +117,7 @@
 
 @media (min-width: 1280px) {
   .footer {
+    padding-top: 79px;
     padding-right: 70px;
     padding-left: 70px;
     margin: auto;

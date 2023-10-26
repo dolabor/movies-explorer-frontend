@@ -22,7 +22,7 @@ function Header({isLoggedIn}) {
   };
 
   return (
-    <header className={`header ${location.pathname === '/' ? 'header header_blue' : ''}`}>
+    <header className={`header ${location.pathname === '/' ? 'header_blue' : ''}`}>
       <div className="header__content">
         <NavLink to="/" className="header__logo-link">
           <img className="header__logo" src={headerLogo} alt="Логотип Movie Explorer"/>
@@ -33,12 +33,15 @@ function Header({isLoggedIn}) {
               <div className="header__movies-area">
                 <NavLink
                   to="/movies"
-                  className={`header__movies-link ${isActive('/movies') ? 'header__movies-link_active' : ''}`}>
+                  className={`header__movies-link ${isActive('/movies') ? 'header__movies-link_active' : ''}`}
+                >
                   Фильмы
                 </NavLink>
                 <NavLink
                   to="/saved-movies"
-                  className={`header__movies-link ${isActive('/saved-movies') ? 'header__movies-link_active' : ''}`}>
+                  className={`header__movies-link ${isActive('/saved-movies')
+                    ? 'header__movies-link header__movies-link_active' : ''}`}
+                >
                   Сохраненные фильмы
                 </NavLink>
               </div>
@@ -46,7 +49,9 @@ function Header({isLoggedIn}) {
                 <NavLink to="/profile" className="header__link">
                   Аккаунт
                 </NavLink>
-                <div className="header__profile-icon"></div>
+                <div
+                  className={`header__profile-icon ${location.pathname === '/' ? 'header__profile-icon_blue' : ''}`}
+                ></div>
               </div>
             </div>
             <button className="header__burger-button button" type="button" onClick={toggleMenu}>

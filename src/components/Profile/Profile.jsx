@@ -5,7 +5,7 @@ import useFormValidation from "../../hooks/useFormValidation";
 function Profile() {
   const [isEditing, setIsEditing] = React.useState(false);
   const initialValues = {
-    name: "Василий",
+    name: "Виталий",
     email: "pochta@yandex.ru",
     password: ""
   };
@@ -30,6 +30,8 @@ function Profile() {
             <div className="profile__info">
               <p className="profile__text">Имя</p>
               <input
+                minLength={2}
+                maxLength={30}
                 className="profile__text profile__input"
                 type="text"
                 name="name"
@@ -41,6 +43,8 @@ function Profile() {
             <div className="profile__info">
               <p className="profile__text">E-mail</p>
               <input
+                minLength={2}
+                maxLength={30}
                 className="profile__text profile__input"
                 type="email"
                 name="email"

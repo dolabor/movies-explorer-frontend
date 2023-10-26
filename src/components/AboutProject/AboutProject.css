@@ -86,9 +86,9 @@
   }
 
   .about-project__description {
-    gap: 56px;
+    gap: 58px;
     flex-direction: column;
-    padding: 60px 0;
+    padding: 61px 0;
   }
 
   .about-project__detail {
@@ -114,6 +114,9 @@
 
   .about-project__backend-scale {
     min-height: 36px;
+    font-size: 14px;
+    padding: 11px;
+    min-width: 140px;
   }
 
   .about-project__caption {
@@ -123,8 +126,8 @@
   }
 
   .about-project__description {
-    gap: 30px;
-    padding: 70px 0 93px 0;
+    gap: 37px;
+    padding: 71px 0 93px 0;
     flex-direction: row;
   }
 
@@ -135,6 +138,8 @@
 
   .about-project__frontend-scale {
     min-height: 36px;
+    font-size: 14px;
+    padding: 11px 10px;
   }
 
   .about-project__label {
@@ -160,12 +165,10 @@
   }
 
   .about-project__backend-scale {
-    font-size: 14px;
     padding: 10px 14px;
   }
 
   .about-project__frontend-scale {
-    font-size: 14px;
     padding: 10px 14px;
   }
 

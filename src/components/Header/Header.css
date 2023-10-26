@@ -5,7 +5,6 @@
   border: none;
   position: relative;
   min-height: 74px;
-  padding: 0 70px;
 }
 
 .header__content {
@@ -71,6 +70,13 @@
   padding: 18px 0 18px;
 }
 
+.header__logo_blue {
+  display: block;
+  width: 38px;
+  height: 38px;
+  padding: 18px 0 18px;
+}
+
 .header__movies-area {
   display: none;
   gap: 16px;
@@ -97,7 +103,7 @@
 }
 
 .header__profile-icon {
-  background-color: #0F4157;
+  background-color: #313131;
   background-image: url(../../images/header-profile-icon.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -110,11 +116,31 @@
   margin: 3px 3px 3px 7px;
 }
 
+.header__profile-icon_blue {
+  background-color: #0F4157;
+}
+
 .header__burger-button {
   display: block;
+  visibility: visible;
+}
+
+@media (min-width: 320px) {
+  .header {
+    padding: 0 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 0 30px;
+  }
 }
 
 @media (min-width: 1280px) {
+  .header {
+   padding: 0 70px;
+  }
 
   .header__burger-button {
     display: none;

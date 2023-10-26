@@ -10,7 +10,7 @@
   display: grid;
   grid-template-rows: max-content max-content;
   width: 100%;
-  min-height: 400px;
+  min-height: 282px;
   align-content: space-between;
 }
 
@@ -128,7 +128,7 @@
   background-color: #424242;
   width: 100%;
   height: 1px;
-  margin: 16px 0;
+  margin: 16px 0 18px 0;
 }
 
 @media (min-width: 320px) {
@@ -153,14 +153,24 @@
   .profile__link {
     font-size: 13px;
   }
+
+   .profile__top {
+    min-height: 272px;
+  }
 }
 
 @media (min-width: 1280px) {
   .profile {
-    padding: 74px 435px 70px 435px;
+    padding: 74px 0 70px 0;
+    margin: auto;
+    max-width: 410px;
   }
 
   .profile__title {
     padding-bottom: 123px;
+  }
+
+  .profile__top {
+    min-height: 282px;
   }
 }

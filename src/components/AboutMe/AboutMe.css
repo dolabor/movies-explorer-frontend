@@ -118,6 +118,7 @@
   .about-me__intro {
     font-size: 12px;
     line-height: 18px;
+    min-width: 364px;
   }
 
   .about-me__name {
