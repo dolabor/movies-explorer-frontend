@@ -1,0 +1,157 @@
+.navigation {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #202020;
+  padding: 20% 10px 46px 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.navigation__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.navigation__close-button {
+  position: absolute;
+}
+
+.navigation__close-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.navigation__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navigation__link {
+  color: #FFF;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.navigation__link_active {
+  position: relative;
+}
+
+.navigation__link_active::after {
+  text-decoration: underline;
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  height: 1px;
+  background-color: #FFF;
+}
+
+.navigation__link:hover {
+  cursor: pointer;
+}
+
+.navigation__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.navigation__profile-icon {
+  background-color: #0F4157;
+  background-image: url(../../images/header-profile-icon.svg);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.navigation__links {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100px;
+  padding: 3px 3px 3px 11px;
+}
+
+.navigation__profile-link {
+  color: #FFF;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 12px;
+  text-decoration: none;
+  width: 53px;
+}
+
+@media (min-width: 320px) {
+  .navigation {
+    padding: 144px 10px 46px 10px;
+  }
+
+  .navigation__close-button {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+  }
+
+  .navigation__links {
+    gap: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navigation {
+    padding: 159px 90px 90px;
+    box-sizing: border-box;
+    width: 520px;
+    min-height: 720px;
+  }
+
+  .navigation__close-button {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+  }
+
+  .navigation__links {
+    gap: 28px;
+  }
+}
+
+
