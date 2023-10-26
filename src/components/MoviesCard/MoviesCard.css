@@ -39,7 +39,7 @@
 }
 
 .movies-card__delete-button {
-  display: none;
+  display: block;
   background-image: url("../../images/delete-card-button.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -100,6 +100,14 @@
   .movies-card__title {
     font-size: 13px;
     line-height: 19px;
+  }
+
+  .movies-card__delete-button {
+    display: none;
+  }
+
+  .movies-card:hover .movies-card__delete-button {
+    display: block;
   }
 
   .movies-card__intro {

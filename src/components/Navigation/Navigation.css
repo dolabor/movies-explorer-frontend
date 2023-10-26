@@ -27,8 +27,6 @@
 
 .navigation__close-button {
   position: absolute;
-  top: 22px;
-  right: 22px;
 }
 
 .navigation__close-icon {
@@ -48,7 +46,7 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 12px;
+  line-height: normal;
   text-decoration: none;
 }
 
@@ -91,7 +89,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3px 3px 3px 7px;
+  margin: 0;
 }
 
 .navigation__links {
@@ -100,14 +98,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 38px;
 }
 
 .navigation__profile {
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: center;
+  gap: 7px;
+  width: 100px;
+  padding: 3px 3px 3px 11px;
 }
 
 .navigation__profile-link {
@@ -117,14 +116,41 @@
   font-weight: 500;
   line-height: 12px;
   text-decoration: none;
+  width: 53px;
+}
+
+@media (min-width: 320px) {
+  .navigation {
+    padding: 144px 10px 46px 10px;
+  }
+
+  .navigation__close-button {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+  }
+
+  .navigation__links {
+    gap: 24px;
+  }
 }
 
 @media (min-width: 768px) {
   .navigation {
-    padding: 165px 90px 90px;
+    padding: 159px 90px 90px;
     box-sizing: border-box;
     width: 520px;
     min-height: 720px;
+  }
+
+  .navigation__close-button {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+  }
+
+  .navigation__links {
+    gap: 28px;
   }
 }
 
