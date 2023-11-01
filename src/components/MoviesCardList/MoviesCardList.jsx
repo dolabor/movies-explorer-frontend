@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ data, onCardLike, onCardDelete}) {
   const [visibleCards, setVisibleCards] = useState(5);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
 
   useEffect(() => {
-    setCurrentCards(movies.slice(0, visibleCards));
-  }, [movies, visibleCards]);
+    setCurrentCards(data.slice(0, visibleCards));
+  }, [data, visibleCards]);
 
   const handleShowMore = () => {
     const nextRowStart = currentCards.length;
     const nextRowEnd = nextRowStart + visibleCards;
-    const nextRow = movies.slice(nextRowStart, nextRowEnd);
+    const nextRow = data.slice(nextRowStart, nextRowEnd);
 
     setCurrentCards([...currentCards, ...nextRow]);
 
-    if (nextRowEnd >= movies.length) {
+    if (nextRowEnd >= data.length) {
       setShowMoreVisible(false);
     }
   };
@@ -47,15 +47,15 @@ function MoviesCardList({ movies }) {
         {currentCards.map((movie, cardNumber) => (
           <li key={movie.id} className="movies-card-list__item">
             <MoviesCard
-              title={movie.title}
-              duration={movie.duration}
-              poster={movie.image}
+              data={data}
               isLiked={movie.isLiked}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           </li>
         ))}
       </ul>
-      {visibleCards < movies.length && showMoreVisible && (
+      {visibleCards < data.length && showMoreVisible && (
         <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
           Еще
         </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes, Route, useRoutes} from "react-router-dom";
+import {Routes, Route, useRoutes, useNavigate} from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -9,13 +9,102 @@ import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import {moviesApi} from "../../utils/MoviesApi";
+import {mainApi} from "../../utils/MainApi";
 
 function App(props) {
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [movies, setMovies] = React.useState([]);
+  const [isSuccessfulSignUp, setIsSuccessfulSignUp] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [savedMovies, setSavedMovies] = React.useState([]);
+  const navigate = useNavigate();
+
+
+  function handleRegister(data) {
+    mainApi.register(data)
+      .then(() => {
+        setIsSuccessfulSignUp(true);
+        handleLogin(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsSuccessfulSignUp(false);
+      })
+  }
+
+  function tokenCheck() {
+    mainApi.checkToken()
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          navigate("/", {replace: true});
+        }
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+      })
+  }
+
+  function handleLogin(data) {
+    mainApi.login(data)
+      .then(() => {
+        setIsLoggedIn(true);
+        navigate("/profile");
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function handleLogout() {
+    mainApi.logout()
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleMovieDelete(evt) {
+    evt.preventDefault();
+    mainApi.deleteFilm(selectedCard._id)
+      .then(() => {
+        const newMovies = movies.filter((item) => item !== selectedCard);
+        setMovies(newMovies);
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function handleUpdateUser(data) {
+    mainApi.setUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleTrashIconClick(card) {
+    setSelectedCard(card);
+  }
+
+  function handleMovieLike(movie) {
+    const isLiked = movie.likes.some(i => i === currentUser._id);
+
+    mainApi.changeLikeMovieStatus(movie._id, !isLiked)
+      .then((newMovie) => {
+        setMovies((state) => state.map((c) => c._id === movie._id ? newMovie : c));
+      })
+      .catch((err) => console.log(err));
+  }
+
   let header = useRoutes([
-    {path: "/", element: <Header isLoggedIn={true}/>,},
-    {path: "/movies", element: <Header isLoggedIn={true}/>},
-    {path: "/saved-movies", element: <Header isLoggedIn={true}/>},
-    {path: "/profile", element: <Header isLoggedIn={true}/>},
+    {path: "/", element: <Header isLoggedIn={isLoggedIn}/>,},
+    {path: "/movies", element: <Header isLoggedIn={isLoggedIn}/>},
+    {path: "/saved-movies", element: <Header isLoggedIn={isLoggedIn}/>},
+    {path: "/profile", element: <Header isLoggedIn={isLoggedIn}/>},
   ]);
 
   let footer = useRoutes([
@@ -24,30 +113,87 @@ function App(props) {
     {path: "/saved-movies", element: <Footer/>},
   ]);
 
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [])
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      mainApi.getUserProfile()
+        .then((profileData) => {
+          setCurrentUser(profileData)
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [isLoggedIn]);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      moviesApi.getMoviesList(movies)
+        .then((movieList) => {
+          setMovies(movieList.reverse());
+        })
+        .catch((err) => console.log(err))
+    }
+  }, [isLoggedIn]);
+
   return (
-    <div>
+    <CurrentUserContext.Provider value={currentUser}>
       {header}
       <Routes>
         <Route
-          path="/"
+          exact path="/"
           element={<Main/>}
         />
         <Route
-          path="/movies"
-          element={<Movies isLoading={false}/>}
+          exact path="/movies"
+          element={
+            <ProtectedRoute
+              element={
+                <Movies
+                  data={movies}
+                  isLoading={false}
+                  onCardLike={handleMovieLike}
+                  onCardDelete={handleTrashIconClick}
+                />}
+              isLoggedIn={isLoggedIn}
+            />}
         />
-        <Route path="/saved-movies" element={<SavedMovies isLoading={false}/>}/>
         <Route
-          path="/signup"
-          element={<Register/>}
+          exact path="/saved-movies"
+          element={
+            <ProtectedRoute
+              element={<SavedMovies/>}
+              savedMovies={savedMovies}
+              isLoading={false}
+              isLoggedIn={isLoggedIn}
+            />}
         />
         <Route
-          path="/signin"
-          element={<Login/>}
+          exact path="/signup"
+          element={<Register onRegistration={handleRegister}/>}
+        />
+        <Route
+          exact path="/signin"
+          element={
+            <Login
+              onAuthorization={handleLogin}
+              onCheckToken={tokenCheck}
+            />}
         />
         <Route
           path="/profile"
-          element={<Profile />}
+          element={
+            <ProtectedRoute
+              element={
+                <Profile
+                  onSubmit={handleUpdateUser}
+                  handleLogout={handleLogout}
+                />
+              }
+              isLoggedIn={isLoggedIn}
+            />}
         />
         <Route
           path="*"
@@ -55,7 +201,7 @@ function App(props) {
         />
       </Routes>
       {footer}
-    </div>
+    </CurrentUserContext.Provider>
   )
 }
 

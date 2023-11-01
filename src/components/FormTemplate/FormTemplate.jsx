@@ -1,10 +1,15 @@
 import React from "react";
 import formLogo from "../../images/header-logo.svg";
 import {Link, NavLink} from "react-router-dom";
-import useFormValidation from "../../hooks/useFormValidation";
+import {useFormWithValidation} from "../../hooks/useFormValidation";
 
-const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redirectLinkTitle, nameForm}) => {
-  const {values, errors, isValid, handleChange} = useFormValidation({});
+const FormTemplate = ({ formTitle, titleButton, bottomText, redirectRoute, redirectLinkTitle, nameForm, onSubmit }) => {
+  const {values, errors, isValid, isSubmitting, handleChange} = useFormWithValidation({});
+
+  const handleSubmitForm = (evt) => {
+    evt.preventDefault();
+    onSubmit(values)
+  }
 
   return (
     <section className="form">
@@ -31,6 +36,7 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
                   value={values.name || ''}
                   onChange={handleChange}
                   placeholder="Виталий"
+                  disabled={isSubmitting}
                   required
                 />
                 <span
@@ -51,7 +57,9 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
               <input
                 className="form__input"
                 minLength={2}
+                disabled={isSubmitting}
                 maxLength={30}
+                pattern="[a-z0-9._\-]+@[a-z0-9]+\.[a-z]{2,4}"
                 autoComplete="off"
                 id="email"
                 name="email"
@@ -83,6 +91,7 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
                 id="password"
                 name="password"
                 type="password"
+                disabled={isSubmitting}
                 value={values.password || ''}
                 onChange={handleChange}
                 placeholder="Пароль"
@@ -104,7 +113,8 @@ const FormTemplate = ({formTitle, titleButton, bottomText, redirectRoute, redire
           <button
             className={`form__submit-button button ${!isValid && "form__submit-button_disabled"}`}
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
+            onClick={handleSubmitForm}
           >
             {titleButton}
           </button>

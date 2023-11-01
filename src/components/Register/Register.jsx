@@ -1,7 +1,7 @@
 import React from "react";
 import FormTemplate from "../FormTemplate/FormTemplate";
 
-const Register = () => {
+const Register = ({onRegistration}) => {
 
   return (
     <main className="register">
@@ -12,6 +12,7 @@ const Register = () => {
         redirectRoute="/signin"
         redirectLinkTitle="Войти"
         nameForm="signup"
+        onSubmit={onRegistration}
       >
       </FormTemplate>
     </main>
