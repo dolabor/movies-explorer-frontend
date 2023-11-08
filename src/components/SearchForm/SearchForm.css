@@ -18,7 +18,9 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
+  outline: none;
   line-height: 17px;
+  flex: 1;
 }
 
 .search-form__button {

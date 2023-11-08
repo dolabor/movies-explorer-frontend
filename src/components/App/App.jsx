@@ -13,16 +13,17 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {moviesApi} from "../../utils/MoviesApi";
 import {mainApi} from "../../utils/MainApi";
+import savedMovies from "../SavedMovies/SavedMovies";
 
 function App(props) {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
   const [isSuccessfulSignUp, setIsSuccessfulSignUp] = React.useState(false);
+  const [cardLikes, setCardLikes] = React.useState({});
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [savedMovies, setSavedMovies] = React.useState([]);
-  const navigate = useNavigate();
+  const [data, setData] = React.useState([]);
+  const [likedMovies, setLikedMovies] = React.useState([]);
 
+  const navigate = useNavigate();
 
   function handleRegister(data) {
     mainApi.register(data)
@@ -68,16 +69,6 @@ function App(props) {
       .catch((err) => console.log(err));
   }
 
-  function handleMovieDelete(evt) {
-    evt.preventDefault();
-    mainApi.deleteFilm(selectedCard._id)
-      .then(() => {
-        const newMovies = movies.filter((item) => item !== selectedCard);
-        setMovies(newMovies);
-      })
-      .catch((err) => console.log(err))
-  }
-
   function handleUpdateUser(data) {
     mainApi.setUserInfo(data)
       .then((res) => {
@@ -86,18 +77,24 @@ function App(props) {
       .catch((err) => console.log(err));
   }
 
-  function handleTrashIconClick(card) {
-    setSelectedCard(card);
-  }
+  function handleLikeClick(selectedCard, isCardLiked) {
+    const selectedCardId = selectedCard.id || selectedCard.movieId;
 
-  function handleMovieLike(movie) {
-    const isLiked = movie.likes.some(i => i === currentUser._id);
-
-    mainApi.changeLikeMovieStatus(movie._id, !isLiked)
-      .then((newMovie) => {
-        setMovies((state) => state.map((c) => c._id === movie._id ? newMovie : c));
-      })
-      .catch((err) => console.log(err));
+    if (isCardLiked) {
+      mainApi
+        .deleteFilm(selectedCardId)
+        .then(() => {
+          setLikedMovies(likedMovies.filter(({ id, movieId }) => id !== selectedCardId && movieId !== selectedCardId));
+        })
+        .catch((err) => console.log(err));
+    } else {
+      mainApi
+        .addNewMovie(selectedCard)
+        .then(() => {
+          setLikedMovies([...likedMovies, {...selectedCard, movieId: selectedCardId}]);
+        })
+        .catch((err) => console.error(err));
+    }
   }
 
   let header = useRoutes([
@@ -112,7 +109,6 @@ function App(props) {
     {path: "/movies", element: <Footer/>},
     {path: "/saved-movies", element: <Footer/>},
   ]);
-
 
   React.useEffect(() => {
     tokenCheck();
@@ -129,14 +125,22 @@ function App(props) {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    if (isLoggedIn) {
-      moviesApi.getMoviesList(movies)
-        .then((movieList) => {
-          setMovies(movieList.reverse());
-        })
-        .catch((err) => console.log(err))
-    }
-  }, [isLoggedIn]);
+    moviesApi
+      .getMoviesList()
+      .then((data) => {
+        setData(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  React.useEffect(() => {
+    mainApi
+      .getSavedMovies()
+      .then((savedMoviesList) => {
+        setLikedMovies(savedMoviesList);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -152,10 +156,10 @@ function App(props) {
             <ProtectedRoute
               element={
                 <Movies
-                  data={movies}
+                  data={data}
                   isLoading={false}
-                  onCardLike={handleMovieLike}
-                  onCardDelete={handleTrashIconClick}
+                  likedMovies={likedMovies}
+                  onCardLike={handleLikeClick}
                 />}
               isLoggedIn={isLoggedIn}
             />}
@@ -164,12 +168,15 @@ function App(props) {
           exact path="/saved-movies"
           element={
             <ProtectedRoute
-              element={<SavedMovies/>}
-              savedMovies={savedMovies}
-              isLoading={false}
+              element={<SavedMovies
+                data={likedMovies}
+                isLoading={false}
+                likedMovies={likedMovies}
+                handleLikeClick={handleLikeClick}
+              />}
               isLoggedIn={isLoggedIn}
             />}
-        />
+        />}
         <Route
           exact path="/signup"
           element={<Register onRegistration={handleRegister}/>}

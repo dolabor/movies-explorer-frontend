@@ -33,7 +33,7 @@ class MainApi {
       .then(res => this._checkResponse(res))
   }
 
-  addNewMovie(data) {
+  addNewMovie(data, owner) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: this._headers,
@@ -45,7 +45,7 @@ class MainApi {
         year: data.year,
         description: data.description,
         image: `https://api.nomoreparties.co/${data.image.url}`,
-        trailer: data.trailer,
+        trailerLink: data.trailerLink,
         thumbnail: `https://api.nomoreparties.co/${data.image.formats.thumbnail.url}`,
         movieId: data.id,
         nameRU: data.nameRU,

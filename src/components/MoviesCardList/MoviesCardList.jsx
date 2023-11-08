@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ data, onCardLike, onCardDelete}) {
+function MoviesCardList({data, onCardLike, likedMovies, isShortMovie}) {
   const [visibleCards, setVisibleCards] = useState(5);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
-
-  useEffect(() => {
-    setCurrentCards(data.slice(0, visibleCards));
-  }, [data, visibleCards]);
 
   const handleShowMore = () => {
     const nextRowStart = currentCards.length;
@@ -33,6 +29,14 @@ function MoviesCardList({ data, onCardLike, onCardDelete}) {
   };
 
   useEffect(() => {
+    if (isShortMovie) {
+      setCurrentCards(data.filter(item => item.duration < 40).slice(0, visibleCards));
+    } else {
+      setCurrentCards(data.slice(0, visibleCards));
+    }
+  }, [data, isShortMovie, visibleCards]);
+
+  useEffect(() => {
     handleWindowResize();
     window.addEventListener('resize', handleWindowResize);
 
@@ -44,17 +48,23 @@ function MoviesCardList({ data, onCardLike, onCardDelete}) {
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__grid">
-        {currentCards.map((movie, cardNumber) => (
-          <li key={movie.id} className="movies-card-list__item">
-            <MoviesCard
-              data={data}
-              isLiked={movie.isLiked}
-              onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
-            />
-          </li>
-        ))}
+        {currentCards.map((movie) => {
+          const isLiked = likedMovies.some((movieCard) => {
+            return (movieCard.id || movieCard.movieId) === movie.id;
+          });
+
+          return (
+            <li key={movie.id} className="movies-card-list__item">
+              <MoviesCard
+                movie={movie}
+                onCardLike={onCardLike}
+                isLiked={isLiked}
+              />
+            </li>
+          );
+        })}
       </ul>
+
       {visibleCards < data.length && showMoreVisible && (
         <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
           Еще
