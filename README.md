@@ -7,6 +7,8 @@
 
 ## Ссылка на проект
 
-IP 158.160.52.22
+https://movies-explorer-ec.nomoredomainsicu.ru
 
-Frontend https://movies-explorer-ec.nomoredomainsicu.ru
+## Ссылка на Pull Request
+
+https://github.com/dolabor/movies-explorer-frontend/pull/2
