@@ -132,7 +132,7 @@ function App(props) {
         setData(data);
       })
        .catch((err) => {
-        console.error(err);
+        console.log(err);
       })
       .finally(() => {
         setIsLoading(false);

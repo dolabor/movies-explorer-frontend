@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {SearchMoviesContext} from "../contexts/SearchMoviesContext";
+import {SearchMoviesContext} from "../../contexts/SearchMoviesContext";
 
 
 export function SearchMoviesContextProvider({children}) {
