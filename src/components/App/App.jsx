@@ -13,14 +13,13 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {moviesApi} from "../../utils/MoviesApi";
 import {mainApi} from "../../utils/MainApi";
-import savedMovies from "../SavedMovies/SavedMovies";
 
 function App(props) {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isSuccessfulSignUp, setIsSuccessfulSignUp] = React.useState(false);
-  const [cardLikes, setCardLikes] = React.useState({});
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [likedMovies, setLikedMovies] = React.useState([]);
 
   const navigate = useNavigate();
@@ -84,7 +83,7 @@ function App(props) {
       mainApi
         .deleteFilm(selectedCardId)
         .then(() => {
-          setLikedMovies(likedMovies.filter(({ id, movieId }) => id !== selectedCardId && movieId !== selectedCardId));
+          setLikedMovies(likedMovies.filter(({id, movieId}) => id !== selectedCardId && movieId !== selectedCardId));
         })
         .catch((err) => console.log(err));
     } else {
@@ -125,21 +124,36 @@ function App(props) {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
+    setIsLoading(true);
+
     moviesApi
       .getMoviesList()
       .then((data) => {
         setData(data);
       })
-      .catch((error) => console.error(error));
+       .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        console.log(isLoading)
+      });
   }, []);
 
   React.useEffect(() => {
+    setIsLoading(true);
+
     mainApi
       .getSavedMovies()
       .then((savedMoviesList) => {
         setLikedMovies(savedMoviesList);
       })
-      .catch((error) => console.error(error));
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -157,7 +171,7 @@ function App(props) {
               element={
                 <Movies
                   data={data}
-                  isLoading={false}
+                  isLoading={isLoading}
                   likedMovies={likedMovies}
                   onCardLike={handleLikeClick}
                 />}

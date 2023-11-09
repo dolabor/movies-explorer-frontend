@@ -33,7 +33,7 @@ class MainApi {
       .then(res => this._checkResponse(res))
   }
 
-  addNewMovie(data, owner) {
+  addNewMovie(data) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: this._headers,
@@ -108,32 +108,6 @@ class MainApi {
       credentials: 'include',
     })
       .then(res => this._checkResponse(res))
-  }
-
-  deleteLike(id) {
-    return fetch(`${this._baseUrl}/movies/${id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-      credentials: 'include',
-    })
-      .then(res => this._checkResponse(res))
-  }
-
-  addLike(id) {
-    return fetch(`${this._baseUrl}/movies/${id}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-      credentials: 'include',
-    })
-      .then(res => this._checkResponse(res))
-  }
-
-  changeLikeMovieStatus(id, isLiked) {
-    if (isLiked) {
-      return this.addLike(id);
-    } else {
-      return this.deleteLike(id);
-    }
   }
 
   _checkResponse(res) {

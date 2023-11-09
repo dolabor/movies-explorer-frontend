@@ -13,12 +13,19 @@ function MoviesCard({movie, isLiked, onCardLike}) {
     onCardLike(movie, isLiked);
   };
 
-  const src = movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : movie.image;
+  const openTrailerLink = () => {
+    if (movie.trailerLink) {
+      window.open(movie.trailerLink, '_blank');
+    }
+  };
 
   return (
     <section className="movies-card">
-      <img src={src}
-           alt="Постер фильма" className="movies-card__image"/>
+      <img src={movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : movie.image}
+           alt="Постер фильма"
+           className="movies-card__image"
+           onClick={openTrailerLink}
+      />
       <div className="movies-card__intro">
         <h2 className="movies-card__title">{movie.nameRU}</h2>
         {location.pathname === '/saved-movies' ? (

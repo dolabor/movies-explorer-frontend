@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm({handleSearchSubmit, searchQuery, handleSearchChange, isShortMovie, setIsShortMovie, error}) {
