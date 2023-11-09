@@ -116,7 +116,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  baseUrl: 'http://localhost:4000',
+  baseUrl: 'https://api.movies-explorer-EC.nomoredomainsicu.ru',
   headers: {
     'Content-Type': 'application/json',
   },

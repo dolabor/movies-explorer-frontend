@@ -1,18 +1,24 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import {moviesApi} from "../../utils/MoviesApi";
+import {SearchMoviesContext} from "../../contexts/SearchMoviesContext";
 
-function Movies({data, isLoading, onCardLike, likedMovies}) {
-  const storedSearchQuery = localStorage.getItem('searchQuery') || '';
-  const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true' || false;
-
-  const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
-  const [isShortMovie, setIsShortMovie] = useState(storedIsShortMovie);
+function Movies({isLoading, onCardLike, likedMovies}) {
   const [foundMovies, setFoundMovies] = useState([]);
-  const [error, setError] = useState('');
-  const [searching, setSearching] = useState(false);
+  const {
+    error,
+    searching,
+    searchedOnce,
+    searchQuery,
+    isShortMovie,
+    setSearchQuery,
+    setIsShortMovie,
+    setError,
+    setSearching,
+    setSearchedOnce
+  } = useContext(SearchMoviesContext);
 
   const saveSearchDataToLocalStorage = useCallback((query, isShortMovie, movies) => {
     localStorage.setItem('searchQuery', query);
@@ -24,6 +30,7 @@ function Movies({data, isLoading, onCardLike, likedMovies}) {
     const storedFoundMovies = localStorage.getItem('foundMovies');
     if (storedFoundMovies) {
       setFoundMovies(JSON.parse(storedFoundMovies));
+      setSearchedOnce(true);
     }
   }, []);
 
@@ -39,10 +46,11 @@ function Movies({data, isLoading, onCardLike, likedMovies}) {
           );
           setSearching(false);
           setFoundMovies(filteredMovies);
+          setSearchedOnce(true);
 
           saveSearchDataToLocalStorage(searchQuery, isShortMovie, filteredMovies);
         })
-        .catch((err) => {
+        .catch(() => {
           setSearching(false);
           setError('Во время запроса произошла ошибка. Попробуйте ещё раз.');
         });
@@ -63,7 +71,6 @@ function Movies({data, isLoading, onCardLike, likedMovies}) {
     }
   };
 
-  console.log(foundMovies);
   return (
     <main className="movies">
       <SearchForm
@@ -76,15 +83,19 @@ function Movies({data, isLoading, onCardLike, likedMovies}) {
       />
       {isLoading || searching ? (
         <Preloader/>
-      ) : foundMovies.length > 0 ? (
-        <MoviesCardList
-          data={foundMovies}
-          likedMovies={likedMovies}
-          onCardLike={onCardLike}
-          isShortMovie={isShortMovie}
-        />
+      ) : searchedOnce ? (
+        foundMovies.length > 0 ? (
+          <MoviesCardList
+            data={foundMovies}
+            likedMovies={likedMovies}
+            onCardLike={onCardLike}
+            isShortMovie={isShortMovie}
+          />
+        ) : (
+          <p className="movies__status">{error || 'Ничего не найдено'}</p>
+        )
       ) : (
-        <p className="movies__error">{error || 'Ничего не найдено'}</p>
+        <p className="movies__status">Начните поиск</p>
       )}
     </main>
   );

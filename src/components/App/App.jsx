@@ -136,7 +136,6 @@ function App(props) {
       })
       .finally(() => {
         setIsLoading(false);
-        console.log(isLoading)
       });
   }, []);
 
