@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import { moviesApi } from "../../utils/MoviesApi";
+import { SearchMoviesContext } from "../../contexts/SearchMoviesContext";
 
 function Movies({ isLoading, onCardLike, likedMovies }) {
+
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
   const [searching, setSearching] = useState(false);
   const [searchedOnce, setSearchedOnce] = useState(false);
+  const [isProfileDataChanged, setIsProfileDataChanged] = useState(false);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();

@@ -13,7 +13,6 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {moviesApi} from "../../utils/MoviesApi";
 import {mainApi} from "../../utils/MainApi";
-import Preloader from "../Preloader/Preloader";
 
 function App(props) {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -22,7 +21,7 @@ function App(props) {
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [likedMovies, setLikedMovies] = React.useState([]);
-  const [isTokenCheckComplete, setTokenCheckComplete] = React.useState(false);
+
 
   const navigate = useNavigate();
 
@@ -43,6 +42,7 @@ function App(props) {
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
+          navigate("/", {replace: true});
         }
       })
       .catch(() => {
@@ -111,25 +111,16 @@ function App(props) {
   ]);
 
   React.useEffect(() => {
-    const tokenCheck = async () => {
-      try {
-        await mainApi.checkToken();
-        setIsLoggedIn(true);
-      } catch (error) {
-        setIsLoggedIn(false);
-      } finally {
-        setTokenCheckComplete(true);
-      }
-    };
-
     tokenCheck();
-  }, [navigate]);
+  }, [])
 
   React.useEffect(() => {
     if (isLoggedIn) {
-      mainApi.getUserProfile().then((profileData) => {
-        setCurrentUser(profileData);
-      });
+      mainApi.getUserProfile()
+        .then((profileData) => {
+          setCurrentUser(profileData)
+        })
+        .catch((err) => console.log(err));
     }
   }, [isLoggedIn]);
 
@@ -165,78 +156,74 @@ function App(props) {
       });
   }, []);
 
+  console.log(isLoggedIn)
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {isTokenCheckComplete ? (
-        <>
-          {header}
-          <Routes>
-            <Route
-              path="/"
-              element={<Main/>}
-            />
-            <Route
-              path="/movies"
+      {header}
+      <Routes>
+        <Route
+          path="/"
+          element={<Main/>}
+        />
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRoute
               element={
-                <ProtectedRoute
-                  element={
-                    <Movies
-                      data={data}
-                      isLoading={isLoading}
-                      likedMovies={likedMovies}
-                      onCardLike={handleLikeClick}
-                    />}
-                  isLoggedIn={isLoggedIn}
+                <Movies
+                  data={data}
+                  isLoading={isLoading}
+                  likedMovies={likedMovies}
+                  onCardLike={handleLikeClick}
                 />}
-            />
-            <Route
-              path="/saved-movies"
-              element={
-                <ProtectedRoute
-                  element={<SavedMovies
-                    data={likedMovies}
-                    isLoading={false}
-                    likedMovies={likedMovies}
-                    handleLikeClick={handleLikeClick}
-                  />}
-                  isLoggedIn={isLoggedIn}
-                />}
+              isLoggedIn={isLoggedIn}
             />}
-            <Route
-              path="/signup"
-              element={<Register onRegistration={handleRegister}/>}
-            />
-            <Route
-              path="/signin"
+        />
+        <Route
+          path="/saved-movies"
+          element={
+            <ProtectedRoute
+              element={<SavedMovies
+                data={likedMovies}
+                isLoading={false}
+                likedMovies={likedMovies}
+                handleLikeClick={handleLikeClick}
+              />}
+              isLoggedIn={isLoggedIn}
+            />}
+        />}
+        <Route
+          path="/signup"
+          element={<Register onRegistration={handleRegister}/>}
+        />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              onAuthorization={handleLogin}
+              onCheckToken={tokenCheck}
+            />}
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute
               element={
-                <Login
-                  onAuthorization={handleLogin}
-                  onCheckToken={tokenCheck}
-                />}
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute
-                  element={
-                    <Profile
-                      onSubmit={handleUpdateUser}
-                      handleLogout={handleLogout}
-                    />
-                  }
-                  isLoggedIn={isLoggedIn}
-                />}
-            />
-            <Route
-              path="*"
-              element={<NotFound/>}
-            />
-          </Routes>
-          {footer}
-        </>
-      ) : (
-        <Preloader/>
-      )}
+                <Profile
+                  onSubmit={handleUpdateUser}
+                  handleLogout={handleLogout}
+                />
+              }
+              isLoggedIn={isLoggedIn}
+            />}
+        />
+        <Route
+          path="*"
+          element={<NotFound/>}
+        />
+      </Routes>
+      {footer}
     </CurrentUserContext.Provider>
   )
 }
