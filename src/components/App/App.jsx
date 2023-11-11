@@ -75,7 +75,7 @@ function App(props) {
       })
       .catch(() => {
         setError('Ошибка при авторизации. Пожалуйста, проверьте введенные данные.');
-        console.error(error);
+        console.log(error);
       });
   }
 
