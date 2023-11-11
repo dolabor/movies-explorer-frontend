@@ -26,7 +26,6 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
     }
   };
 
-
   const handleWindowResize = () => {
     const screenWidth = window.innerWidth;
 
@@ -85,7 +84,7 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
             })}
           </ul>
 
-          {visibleCards < data.length && showMoreVisible && isShowMoreEnabled && (
+          {currentCards < data.length && showMoreVisible && isShowMoreEnabled && (
             <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
               Еще
             </button>
