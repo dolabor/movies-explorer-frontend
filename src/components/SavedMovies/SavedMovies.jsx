@@ -54,6 +54,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
           isShortMovie={isShortMovie}
           onCardLike={card => handleLikeClick(card, true)}
           setShowMoreVisible={false}
+          isCardListVisible={true}
         />
       )}
       <div className="saved-movies__divider"></div>

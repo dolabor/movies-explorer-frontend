@@ -18,7 +18,6 @@ function Movies({isLoading, onCardLike, likedMovies}) {
     const storedSearchQuery = localStorage.getItem('searchQuery') || '';
     const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
     const storedFoundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
-    console.log(storedFoundMovies);
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
@@ -73,6 +72,8 @@ function Movies({isLoading, onCardLike, likedMovies}) {
         });
     }
   }, [searchQuery, isFormSubmitted]);
+
+  console.log(isFormSubmitted, searchedOnce)
 
   return (
     <main className="movies">
