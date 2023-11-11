@@ -12,6 +12,7 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
   const [addMoreCards, setAddMoreCards] = useState(0);
+  const shortMovies = data.filter(item => item.duration < shortMoviesDuration);
 
   const handleShowMore = () => {
     const nextRowStart = currentCards.length;
@@ -52,14 +53,15 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
   }, []);
 
   useEffect(() => {
-    if (isShortMovie) {
-      setCurrentCards(data.filter(item => item.duration < shortMoviesDuration).slice(0, visibleCards));
-    } else if (isShowMoreEnabled) {
+    if (isShowMoreEnabled) {
       setCurrentCards(data.slice(0, visibleCards));
+    } else if (isShortMovie) {
+      setCurrentCards(shortMovies.slice(0, visibleCards));
     } else {
       setCurrentCards(data);
     }
-  }, [data, isShortMovie, visibleCards, isShowMoreEnabled]);
+  }, [data, isShortMovie, visibleCards, isShowMoreEnabled, shortMovies]);
+
 
   return (
     <section className="movies-card-list">
