@@ -3,12 +3,22 @@ import formLogo from "../../images/header-logo.svg";
 import {Link, NavLink} from "react-router-dom";
 import {useFormWithValidation} from "../../hooks/useFormValidation";
 
-const FormTemplate = ({ formTitle, titleButton, bottomText, redirectRoute, redirectLinkTitle, nameForm, onSubmit, error }) => {
-  const {values, errors, isValid, isSubmitting, handleChange} = useFormWithValidation({});
+const FormTemplate = ({
+                        formTitle,
+                        titleButton,
+                        bottomText,
+                        redirectRoute,
+                        redirectLinkTitle,
+                        nameForm,
+                        onSubmit,
+                        error
+                      }) => {
+  const {values, errors, isValid, isSubmitting, handleChange, resetForm} = useFormWithValidation({});
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    onSubmit(values)
+    onSubmit(values);
+    resetForm();
   }
 
   return (
@@ -109,7 +119,7 @@ const FormTemplate = ({ formTitle, titleButton, bottomText, redirectRoute, redir
             </div>
           </fieldset>
         </div>
-        {error && <p className="form__error" onChange={handleChange}>{error}</p>}
+        {error && <p className="form__error">{error}</p>}
         <div className="form__submit">
           <button
             className={`form__submit-button button ${!isValid && "form__submit-button_disabled"}`}
