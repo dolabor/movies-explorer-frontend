@@ -25,10 +25,12 @@ function Profile({onSubmit, handleLogout}) {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    onSubmit({
+    const formData = {
       name: formValues.name,
       email: formValues.email,
-    });
+    };
+    console.log("Submitting form with data:", formData);
+    onSubmit(formData);
     setIsEditing(false);
     setIsProfileEdited(true);
     setTimeout(() => setIsProfileEdited(false), 5000);
