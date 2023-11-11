@@ -17,9 +17,11 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
   useEffect(() => {
     const storedSearchQuery = localStorage.getItem('searchQuery') || '';
     const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
+    const storedFoundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
+    setFoundMovies(storedFoundMovies);
   }, []);
 
   const handleSearchSubmit = (e) => {
@@ -57,10 +59,12 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
           setSearching(false);
           setFoundMovies(filteredMovies);
           setSearchedOnce(true);
+
+          localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
         })
-        .catch((err) => {
+        .catch(() => {
           setSearching(false);
-          setError('Во время запроса произошла ошибка. Попробуйте ещё раз.');
+          setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         });
     }
   }, [searchQuery, isFormSubmitted]);

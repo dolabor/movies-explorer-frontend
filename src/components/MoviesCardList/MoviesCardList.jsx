@@ -28,9 +28,14 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
   const handleWindowResize = () => {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth >= screenWidthBreakpoints.SIZE_L) {
+    if (screenWidth >= screenWidthBreakpoints.SIZE_XL) {
       setVisibleCards(depictedCardsListSizes.SIZE_L);
       setAddMoreCards(addMoreCardsQuantitySize.SIZE_L);
+
+    } else if (screenWidth >= screenWidthBreakpoints.SIZE_L) {
+      setVisibleCards(depictedCardsListSizes.SIZE_M);
+      setAddMoreCards(addMoreCardsQuantitySize.SIZE_S);
+
     } else if (screenWidth >= screenWidthBreakpoints.SIZE_S && screenWidth < screenWidthBreakpoints.SIZE_M) {
       setVisibleCards(depictedCardsListSizes.SIZE_S);
       setAddMoreCards(addMoreCardsQuantitySize.SIZE_S);
