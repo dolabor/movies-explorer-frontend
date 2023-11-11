@@ -10,7 +10,7 @@ import {
 function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardListVisible}) {
   const [visibleCards, setVisibleCards] = useState(0);
   const [currentCards, setCurrentCards] = useState([]);
-  const [showMoreVisible, setShowMoreVisible] = useState(false);
+  const [showMoreVisible, setShowMoreVisible] = useState(true);
   const [addMoreCards, setAddMoreCards] = useState(0);
 
   const handleShowMore = () => {
