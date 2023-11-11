@@ -22,6 +22,7 @@ function App(props) {
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [likedMovies, setLikedMovies] = React.useState([]);
+  const [isCredentialsLoading, setIsCredentialsLoading] = React.useState(true);
 
   const navigate = useNavigate();
 
@@ -131,9 +132,11 @@ function App(props) {
       .getMoviesList()
       .then((data) => {
         setData(data);
+        setIsCredentialsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsCredentialsLoading(false);
       })
       .finally(() => {
         setIsLoading(false);
@@ -157,7 +160,7 @@ function App(props) {
   }, []);
 
   return (
-    // isLoading ? (<Preloader/>) : (
+    isCredentialsLoading ? (<Preloader/>) : (
       <CurrentUserContext.Provider value={currentUser}>
         {header}
         <Routes>
@@ -224,7 +227,7 @@ function App(props) {
         </Routes>
         {footer}
       </CurrentUserContext.Provider>
-    // )
+    )
   )
 }
 
