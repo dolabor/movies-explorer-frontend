@@ -26,6 +26,7 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
     }
   };
 
+
   const handleWindowResize = () => {
     const screenWidth = window.innerWidth;
 
@@ -53,15 +54,14 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
   }, []);
 
   useEffect(() => {
-    if (isShowMoreEnabled) {
-      setCurrentCards(data.slice(0, visibleCards));
-    } else if (isShortMovie) {
+    if (isShortMovie) {
       setCurrentCards(shortMovies.slice(0, visibleCards));
+    } else if (isShowMoreEnabled) {
+      setCurrentCards(data.slice(0, visibleCards));
     } else {
       setCurrentCards(data);
     }
-  }, [data, isShortMovie, visibleCards, isShowMoreEnabled, shortMovies]);
-
+  }, [data, isShortMovie, visibleCards, isShowMoreEnabled]);
 
   return (
     <section className="movies-card-list">
