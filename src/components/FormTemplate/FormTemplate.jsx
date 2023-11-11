@@ -3,16 +3,7 @@ import formLogo from "../../images/header-logo.svg";
 import {Link, NavLink} from "react-router-dom";
 import {useFormWithValidation} from "../../hooks/useFormValidation";
 
-const FormTemplate = ({
-                        formTitle,
-                        titleButton,
-                        bottomText,
-                        redirectRoute,
-                        redirectLinkTitle,
-                        nameForm,
-                        onSubmit,
-                        error
-                      }) => {
+const FormTemplate = ({ formTitle, titleButton, bottomText, redirectRoute, redirectLinkTitle, nameForm, onSubmit, error }) => {
   const {values, errors, isValid, isSubmitting, handleChange} = useFormWithValidation({});
 
   const handleSubmitForm = (evt) => {
@@ -43,7 +34,7 @@ const FormTemplate = ({
                   name="name"
                   type="text"
                   value={values.name || ''}
-                  onChange={() => handleChange('name')}
+                  onChange={handleChange}
                   placeholder="Виталий"
                   disabled={isSubmitting}
                   required
@@ -75,7 +66,7 @@ const FormTemplate = ({
                 type="email"
                 placeholder="pochta@yandex.ru|"
                 value={values.email || ''}
-                onChange={() => handleChange('email')}
+                onChange={handleChange}
                 required
               />
               <span
@@ -102,7 +93,7 @@ const FormTemplate = ({
                 type="password"
                 disabled={isSubmitting}
                 value={values.password || ''}
-                onChange={() => handleChange('password')}
+                onChange={handleChange}
                 placeholder="Пароль"
                 required
               />
