@@ -32,6 +32,7 @@ function App(props) {
     mainApi.register(data)
       .then(() => {
         setIsSuccessfulSignUp(true);
+        setError('');
         handleLogin(data);
       })
       .catch((err) => {
@@ -84,6 +85,7 @@ function App(props) {
       .then((res) => {
         if (res) {
           setIsLoggedIn(false);
+          setError('');
           localStorage.clear();
         }
       })
@@ -133,6 +135,8 @@ function App(props) {
     {path: "/movies", element: <Footer/>},
     {path: "/saved-movies", element: <Footer/>},
   ]);
+
+
 
   React.useEffect(() => {
     tokenCheck();
