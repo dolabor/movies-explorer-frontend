@@ -202,9 +202,8 @@ function App(props) {
                 <ProtectedRoute
                   element={
                     <Movies
-                      data={data}
-                      isLoading={isLoading}
                       likedMovies={likedMovies}
+                      isLoading={isLoading}
                       onCardLike={handleLikeClick}
                     />}
                   isLoggedIn={isLoggedIn}
@@ -217,7 +216,6 @@ function App(props) {
                   element={<SavedMovies
                     data={likedMovies}
                     isLoading={false}
-                    likedMovies={likedMovies}
                     handleLikeClick={handleLikeClick}
                   />}
                   isLoggedIn={isLoggedIn}

@@ -4,8 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import {moviesApi} from '../../utils/MoviesApi';
 
-function Movies({isLoading, onCardLike, likedMovies}) {
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+function Movies({ isLoading, onCardLike, likedMovies}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
@@ -14,24 +13,42 @@ function Movies({isLoading, onCardLike, likedMovies}) {
   const [isCardListVisible, setIsCardListVisible] = useState(true);
   const [isShortMovie, setIsShortMovie] = useState(false);
 
+  const updateCardList = () => {
+    moviesApi
+        .getMoviesList()
+        .then((moviesList) => {
+          const filteredMovies = moviesList.filter(
+            (movie) =>
+              movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+          setSearching(false);
+          setFoundMovies(filteredMovies);
+          setSearchedOnce(true);
+
+          localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
+        })
+        .catch(() => {
+          setSearching(false);
+          setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        });
+  }
+
   useEffect(() => {
     const storedSearchQuery = localStorage.getItem('searchQuery') || '';
     const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
-    const storedFoundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
+
+    if (storedSearchQuery) {
+      updateCardList();
+    }
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
-
-    if (storedFoundMovies.length > 0) {
-      setFoundMovies(storedFoundMovies);
-    }
   }, []);
-
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setSearchedOnce(true);
-    setIsFormSubmitted(true);
+    updateCardList();
 
     if (searchQuery.trim() === '') {
       setError('Нужно ввести ключевое слово');
@@ -49,32 +66,6 @@ function Movies({isLoading, onCardLike, likedMovies}) {
     setError('');
   };
 
-  useEffect(() => {
-    if (searchQuery && isFormSubmitted && !searching) {
-      setSearching(true);
-
-      moviesApi
-        .getMoviesList()
-        .then((moviesList) => {
-          const filteredMovies = moviesList.filter(
-            (movie) =>
-              movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-          setSearching(false);
-          setFoundMovies(filteredMovies);
-          setSearchedOnce(true);
-
-          localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
-        })
-        .catch(() => {
-          setSearching(false);
-          setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-        });
-    }
-  }, [searchQuery, isFormSubmitted]);
-
-  console.log(isFormSubmitted, searchedOnce)
-
   return (
     <main className="movies">
       <SearchForm
@@ -87,7 +78,7 @@ function Movies({isLoading, onCardLike, likedMovies}) {
       />
       {isLoading || searching ? (
         <Preloader/>
-      ) : searchedOnce && isFormSubmitted ? (
+      ) : searchedOnce ? (
         foundMovies.length > 0 ? (
           <MoviesCardList
             data={foundMovies}
