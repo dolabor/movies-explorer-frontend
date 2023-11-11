@@ -59,6 +59,8 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
     }
   }, [data, isShortMovie, visibleCards]);
 
+  console.log(showMoreVisible);
+
   return (
     <section className="movies-card-list">
       {isCardListVisible ? (
@@ -82,14 +84,9 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
           </ul>
 
           {visibleCards < data.length && showMoreVisible && (
-            <>
-              <p>visibleCards: {visibleCards}</p>
-              <p>data.length: {data.length}</p>
-              <p>showMoreVisible: {showMoreVisible.toString()}</p>
-              <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
-                Еще
-              </button>
-            </>
+            <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
+              Еще
+            </button>
           )}
         </>
       ) : ("")}
