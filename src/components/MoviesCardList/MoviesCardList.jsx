@@ -56,6 +56,8 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
       setCurrentCards(data.filter(item => item.duration < shortMoviesDuration).slice(0, visibleCards));
     } else if (isShowMoreEnabled) {
       setCurrentCards(data.slice(0, visibleCards));
+    } else {
+      setCurrentCards(data);
     }
   }, [data, isShortMovie, visibleCards, isShowMoreEnabled]);
 
