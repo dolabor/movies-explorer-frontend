@@ -20,6 +20,8 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
 
     setCurrentCards([...currentCards, ...nextRow]);
 
+    console.log("nextRowEnd", nextRowEnd);
+
     if (nextRowEnd >= data.length) {
       setShowMoreVisible(false);
     }
@@ -58,8 +60,6 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
       setCurrentCards(data.slice(0, visibleCards));
     }
   }, [data, isShortMovie, visibleCards]);
-
-  console.log(showMoreVisible);
 
   return (
     <section className="movies-card-list">
