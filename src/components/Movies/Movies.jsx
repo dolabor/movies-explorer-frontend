@@ -13,6 +13,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
   const [searching, setSearching] = useState(false);
   const [searchedOnce, setSearchedOnce] = useState(false);
   const [isCardListVisible, setIsCardListVisible] = useState(true);
+  const [isShortMovie, setIsShortMovie] = useState(false);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -59,6 +60,8 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
         error={error}
         handleSearchSubmit={handleSearchSubmit}
         handleSearchChange={handleSearchChange}
+        isShortMovie={isShortMovie}
+        setIsShortMovie={setIsShortMovie}
       />
       {isLoading || searching ? (
         <Preloader />
