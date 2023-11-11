@@ -17,9 +17,9 @@ const Login = ({onAuthorization, error}) => {
         redirectRoute="/signup"
         redirectLinkTitle="Регистрация"
         nameForm="signin"
+        error={error}
       >
       </FormTemplate>
-      {error && <p className="error-message">{error}</p>}
     </main>
   )
 }
