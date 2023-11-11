@@ -53,7 +53,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
           likedMovies={data}
           isShortMovie={isShortMovie}
           onCardLike={card => handleLikeClick(card, true)}
-          setShowMoreVisible={false}
+          showMoreVisible={false}
           isCardListVisible={true}
         />
       )}
