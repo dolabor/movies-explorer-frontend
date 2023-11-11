@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
-import { moviesApi } from '../../utils/MoviesApi';
+import {moviesApi} from '../../utils/MoviesApi';
 
-function Movies({ isLoading, onCardLike, likedMovies }) {
+function Movies({isLoading, onCardLike, likedMovies}) {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
@@ -21,7 +21,10 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
-    setFoundMovies(storedFoundMovies);
+
+    if (storedFoundMovies.length > 0) {
+      setFoundMovies(storedFoundMovies);
+    }
   }, []);
 
   const handleSearchSubmit = (e) => {
@@ -80,7 +83,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
         setIsShortMovie={setIsShortMovie}
       />
       {isLoading || searching ? (
-        <Preloader />
+        <Preloader/>
       ) : searchedOnce && isFormSubmitted ? (
         foundMovies.length > 0 ? (
           <MoviesCardList
