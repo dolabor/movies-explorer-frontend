@@ -43,7 +43,6 @@ function App(props) {
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
-          navigate("/", {replace: true});
         }
       })
       .catch(() => {
@@ -116,7 +115,6 @@ function App(props) {
       try {
         await mainApi.checkToken();
         setIsLoggedIn(true);
-        navigate("/", {replace: true});
       } catch (error) {
         setIsLoggedIn(false);
       } finally {
