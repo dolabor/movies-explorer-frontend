@@ -3,7 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({likedMovies, isLoading, handleLikeClick}) {
+function SavedMovies({data, isLoading, handleLikeClick}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ function SavedMovies({likedMovies, isLoading, handleLikeClick}) {
     } else {
       setError('');
 
-      const filteredMovies = likedMovies.filter(
+      const filteredMovies = data.filter(
         (movie) =>
           movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
       );
@@ -33,7 +33,7 @@ function SavedMovies({likedMovies, isLoading, handleLikeClick}) {
 
   useEffect(() => {
     setFoundMovies([]);
-  }, [likedMovies]);
+  }, [data]);
 
   return (
      <main className="saved-movies">
@@ -49,8 +49,8 @@ function SavedMovies({likedMovies, isLoading, handleLikeClick}) {
         <Preloader />
       ) : (
         <MoviesCardList
-          data={foundMovies.length > 0 ? foundMovies : likedMovies}
-          likedMovies={likedMovies}
+          data={foundMovies.length > 0 ? foundMovies : data}
+          likedMovies={data}
           isShortMovie={isShortMovie}
           onCardLike={card => handleLikeClick(card, true)}
           setShowMoreVisible={false}
