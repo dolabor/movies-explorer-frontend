@@ -31,6 +31,13 @@ function Profile({ onSubmit, handleLogout }) {
     setTimeout(() => setIsProfileEdited(false), 5000);
   };
 
+  const isFormChanged = () => {
+    return (
+      formValues.name !== currentUser.name ||
+      formValues.email !== currentUser.email
+    );
+  };
+
   return (
     <main className="profile">
       <h1 className="profile__title">Привет, {currentUser.name}!</h1>
@@ -79,7 +86,7 @@ function Profile({ onSubmit, handleLogout }) {
             className="profile__save-button button"
             type="submit"
             onClick={onSubmit}
-            disabled={!isValid}
+            disabled={!isValid || !isFormChanged()}
           >
             Сохранить
           </button>
