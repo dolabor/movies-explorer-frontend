@@ -24,6 +24,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
       setIsCardListVisible(false);
     } else {
       setError('');
+      setIsCardListVisible(true);
     }
   };
 
