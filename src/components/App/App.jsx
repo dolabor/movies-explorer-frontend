@@ -161,8 +161,7 @@ function App(props) {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {isTokenCheckComplete ? (<Preloader/>
-      ) : (
+      {isTokenCheckComplete ? (
         <>
           {header}
           <Routes>
@@ -229,6 +228,8 @@ function App(props) {
           </Routes>
           {footer}
         </>
+      ) : (
+        <Preloader/>
       )}
     </CurrentUserContext.Provider>
   )
