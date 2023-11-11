@@ -109,7 +109,7 @@ const FormTemplate = ({ formTitle, titleButton, bottomText, redirectRoute, redir
             </div>
           </fieldset>
         </div>
-        {error && <p className="form__error">{error}</p>}
+        {error && <p className="form__error" onChange={handleChange}>{error}</p>}
         <div className="form__submit">
           <button
             className={`form__submit-button button ${!isValid && "form__submit-button_disabled"}`}
