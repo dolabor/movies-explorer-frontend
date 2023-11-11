@@ -43,7 +43,6 @@ function App(props) {
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
-          navigate("/", {replace: true});
         }
       })
       .catch(() => {
@@ -116,7 +115,7 @@ function App(props) {
 
   React.useEffect(() => {
     tokenCheck();
-  }, [navigate])
+  }, [])
 
   React.useEffect(() => {
     if (isLoggedIn) {
