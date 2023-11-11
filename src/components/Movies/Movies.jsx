@@ -18,6 +18,7 @@ function Movies({isLoading, onCardLike, likedMovies}) {
     const storedSearchQuery = localStorage.getItem('searchQuery') || '';
     const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
     const storedFoundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
+    console.log(storedFoundMovies);
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
@@ -26,6 +27,7 @@ function Movies({isLoading, onCardLike, likedMovies}) {
       setFoundMovies(storedFoundMovies);
     }
   }, []);
+
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
