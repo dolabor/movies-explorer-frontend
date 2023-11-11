@@ -140,6 +140,8 @@ function App(props) {
       });
   }, []);
 
+  console.log(isLoggedIn)
+
   React.useEffect(() => {
     setIsLoading(true);
 
@@ -155,8 +157,6 @@ function App(props) {
         setIsLoading(false);
       });
   }, []);
-
-  console.log(isLoggedIn)
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
