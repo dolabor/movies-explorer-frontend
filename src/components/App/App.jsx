@@ -23,6 +23,8 @@ function App(props) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [likedMovies, setLikedMovies] = React.useState([]);
   const [isTokenCheckComplete, setIsTokenCheckComplete] = React.useState(false);
+  const [moviesData, setMoviesData] = React.useState([]);
+  const [error, setError] = React.useState(null);
 
   const navigate = useNavigate();
 
@@ -33,20 +35,32 @@ function App(props) {
         handleLogin(data);
       })
       .catch((err) => {
+        setError('Ошибка при регистрации. Пожалуйста, попробуйте еще раз.');
         console.log(err);
         setIsSuccessfulSignUp(false);
       })
   }
 
   function tokenCheck() {
-    mainApi.checkToken()
+    const currentPath = window.location.pathname;
+
+    mainApi
+      .checkToken()
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
+          const isAuthPage = ['/signin', '/signup'].includes(currentPath);
+          if (isAuthPage) {
+            navigate('/movies');
+          }
         }
       })
       .catch(() => {
         setIsLoggedIn(false);
+
+        if (currentPath !== '/signin' && currentPath !== '/signup') {
+          navigate('/');
+        }
       })
       .finally(() => {
         setIsTokenCheckComplete(true);
@@ -59,7 +73,10 @@ function App(props) {
         setIsLoggedIn(true);
         navigate("/movies");
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setError('Ошибка при авторизации. Пожалуйста, проверьте введенные данные.');
+        console.error(err);
+      });
   }
 
   function handleLogout() {
@@ -67,6 +84,7 @@ function App(props) {
       .then((res) => {
         if (res) {
           setIsLoggedIn(false);
+          localStorage.clear();
         }
       })
       .catch((err) => console.log(err));
@@ -77,7 +95,10 @@ function App(props) {
       .then((res) => {
         setCurrentUser(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError('Ошибка при обновлении профиля. Пожалуйста, попробуйте еще раз.');
+        console.error(err);
+      });
   }
 
   function handleLikeClick(selectedCard, isCardLiked) {
@@ -128,20 +149,22 @@ function App(props) {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    setIsLoading(true);
+    if (moviesData.length === 0) {
+      setIsLoading(true);
 
-    moviesApi
-      .getMoviesList()
-      .then((data) => {
-        setData(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+      moviesApi
+        .getMoviesList()
+        .then((data) => {
+          setMoviesData(data);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [moviesData]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -198,7 +221,7 @@ function App(props) {
             />}
             <Route
               path="/signup"
-              element={<Register onRegistration={handleRegister}/>}
+              element={<Register onRegistration={handleRegister} error={error}/>}
             />
             <Route
               path="/signin"

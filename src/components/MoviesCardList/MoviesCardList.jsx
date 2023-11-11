@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({data, onCardLike, likedMovies, isShortMovie}) {
-  const [visibleCards, setVisibleCards] = useState(5);
+function MoviesCardList({ data, onCardLike, likedMovies, isShortMovie }) {
+  const [visibleCards, setVisibleCards] = useState(0);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
 
@@ -19,22 +19,18 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie}) {
   };
 
   const handleWindowResize = () => {
-    if (window.innerWidth >= 1280) {
-      setVisibleCards(12);
-    } else if (window.innerWidth >= 768) {
-      setVisibleCards(8);
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth >= 1280) {
+      setVisibleCards(4);
+    } else if (screenWidth >= 768) {
+      setVisibleCards(4);
+    } else if (screenWidth >= 480) {
+      setVisibleCards(1);
     } else {
-      setVisibleCards(5);
+      setVisibleCards(2);
     }
   };
-
-  useEffect(() => {
-    if (isShortMovie) {
-      setCurrentCards(data.filter(item => item.duration < 40).slice(0, visibleCards));
-    } else {
-      setCurrentCards(data.slice(0, visibleCards));
-    }
-  }, [data, isShortMovie, visibleCards]);
 
   useEffect(() => {
     handleWindowResize();
@@ -44,6 +40,14 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie}) {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (isShortMovie) {
+      setCurrentCards(data.filter(item => item.duration < 40).slice(0, visibleCards));
+    } else {
+      setCurrentCards(data.slice(0, visibleCards));
+    }
+  }, [data, isShortMovie, visibleCards]);
 
   return (
     <section className="movies-card-list">

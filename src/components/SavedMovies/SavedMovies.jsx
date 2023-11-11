@@ -1,18 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({data, isLoading, handleLikeClick}) {
+function SavedMovies({ data, isLoading, handleLikeClick }) {
   const [isShortMovie, setIsShortMovie] = useState(false);
-  const storedSearchQuery = localStorage.getItem('searchQuery') || '';
-  const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
+  const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setError('');
   };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim() === '') {
+      setError('Нужно ввести ключевое слово');
+    } else {
+      setError('');
+      const filteredMovies = data.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredMovies(filteredMovies);
+    }
+  };
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredMovies([]);
+    }
+  }, [searchQuery]);
 
   return (
     <main className="saved-movies">
@@ -22,12 +41,17 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
         error={error}
         handleSearchChange={handleSearchChange}
         setIsShortMovie={setIsShortMovie}
+        handleSearchSubmit={handleSearchSubmit}
       />
       {isLoading ? (
-        <Preloader/>
+        <Preloader />
       ) : (
-        <MoviesCardList data={data} likedMovies={data} isShortMovie={isShortMovie}
-                        onCardLike={card => handleLikeClick(card, true)}/>
+        <MoviesCardList
+          data={filteredMovies.length > 0 ? filteredMovies : data}
+          likedMovies={data}
+          isShortMovie={isShortMovie}
+          onCardLike={(card) => handleLikeClick(card, true)}
+        />
       )}
       <div className="saved-movies__divider"></div>
     </main>

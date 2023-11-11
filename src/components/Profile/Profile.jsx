@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../../hooks/useFormValidation";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-function Profile({onSubmit, handleLogout}) {
+function Profile({onSubmit, handleLogout, error}) {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isProfileEdited, setIsProfileEdited] = React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
@@ -34,7 +34,6 @@ function Profile({onSubmit, handleLogout}) {
     setIsProfileEdited(true);
     setTimeout(() => setIsProfileEdited(false), 5000);
   };
-
 
   const isFormChanged = () => {
     return (
@@ -110,6 +109,7 @@ function Profile({onSubmit, handleLogout}) {
               </div>
             </div>
           </div>
+          {error && <p className="error-message">{error}</p>}
           {isProfileEdited && (
             <div className="profile__message">
               <p className="profile__success-message">Профиль успешно обновлен!</p>

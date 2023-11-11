@@ -1,7 +1,7 @@
 import React from "react";
 import FormTemplate from "../FormTemplate/FormTemplate";
 
-const Register = ({onRegistration}) => {
+const Register = ({onRegistration, error}) => {
 
   return (
     <main className="register">
@@ -15,6 +15,7 @@ const Register = ({onRegistration}) => {
         onSubmit={onRegistration}
       >
       </FormTemplate>
+      {error && <p className="error-message">{error}</p>}
     </main>
   )
 }

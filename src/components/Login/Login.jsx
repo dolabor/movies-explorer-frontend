@@ -1,7 +1,7 @@
 import React from 'react';
 import FormTemplate from "../FormTemplate/FormTemplate";
 
-const Login = ({onAuthorization}) => {
+const Login = ({onAuthorization, error}) => {
 
   function handleSubmit(data) {
     onAuthorization(data);
@@ -19,6 +19,7 @@ const Login = ({onAuthorization}) => {
         nameForm="signin"
       >
       </FormTemplate>
+      {error && <p className="error-message">{error}</p>}
     </main>
   )
 }
