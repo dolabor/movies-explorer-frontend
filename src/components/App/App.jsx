@@ -229,6 +229,7 @@ function App(props) {
                 <Login
                   onAuthorization={handleLogin}
                   onCheckToken={tokenCheck}
+                  error={error}
                 />}
             />
             <Route
@@ -239,6 +240,7 @@ function App(props) {
                     <Profile
                       onSubmit={handleUpdateUser}
                       handleLogout={handleLogout}
+                      error={error}
                     />
                   }
                   isLoggedIn={isLoggedIn}
