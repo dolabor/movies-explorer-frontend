@@ -83,7 +83,7 @@ function Profile({ onSubmit, handleLogout }) {
             </div>
           </div>
           <button
-            className="profile__save-button button"
+            className={`profile__save-button button ${!isValid && "profile__save-button_disabled"}`}
             type="submit"
             onClick={onSubmit}
             disabled={!isValid || !isFormChanged()}
