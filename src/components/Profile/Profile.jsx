@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useFormWithValidation } from "../../hooks/useFormValidation";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import {Link} from "react-router-dom";
+import {useFormWithValidation} from "../../hooks/useFormValidation";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-function Profile({ onSubmit, handleLogout }) {
+function Profile({onSubmit, handleLogout}) {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isProfileEdited, setIsProfileEdited] = React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
@@ -13,7 +13,7 @@ function Profile({ onSubmit, handleLogout }) {
     email: currentUser.email,
   });
 
-  const { isValid, handleChange } = useFormWithValidation();
+  const {isValid, handleChange} = useFormWithValidation();
 
   const handleEditClick = () => {
     setFormValues({
@@ -25,11 +25,15 @@ function Profile({ onSubmit, handleLogout }) {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    onSubmit(formValues);
+    onSubmit({
+      name: formValues.name,
+      email: formValues.email,
+    });
     setIsEditing(false);
     setIsProfileEdited(true);
     setTimeout(() => setIsProfileEdited(false), 5000);
   };
+
 
   const isFormChanged = () => {
     return (
@@ -83,7 +87,7 @@ function Profile({ onSubmit, handleLogout }) {
             </div>
           </div>
           <button
-            className={`profile__save-button button ${!isValid && "profile__save-button_disabled"}`}
+            className={`profile__save-button button ${(!isValid || !isFormChanged()) && "profile__save-button_disabled"}`}
             type="submit"
             onClick={onSubmit}
             disabled={!isValid || !isFormChanged()}
