@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
@@ -72,6 +72,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
             likedMovies={likedMovies}
             onCardLike={onCardLike}
             isCardListVisible={isCardListVisible}
+            isShortMovie={isShortMovie}
           />
         ) : (
           <p className="movies__status">{error || 'Ничего не найдено'}</p>
