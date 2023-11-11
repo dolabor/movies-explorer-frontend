@@ -1,22 +1,31 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {useFormWithValidation} from "../../hooks/useFormValidation";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import { Link } from "react-router-dom";
+import { useFormWithValidation } from "../../hooks/useFormValidation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({onSubmit, handleLogout}) {
+function Profile({ onSubmit, handleLogout }) {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isProfileEdited, setIsProfileEdited] = React.useState(false);
-  const {email, name} = React.useContext(CurrentUserContext);
-  const {values, setValues, isValid, handleChange} = useFormWithValidation({});
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const [formValues, setFormValues] = React.useState({
+    name: currentUser.name,
+    email: currentUser.email,
+  });
+
+  const { isValid, handleChange } = useFormWithValidation();
 
   const handleEditClick = () => {
-    setValues({name, email});
+    setFormValues({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
     setIsEditing(!isEditing);
   };
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    onSubmit(values);
+    onSubmit(formValues);
     setIsEditing(false);
     setIsProfileEdited(true);
     setTimeout(() => setIsProfileEdited(false), 5000);
@@ -24,7 +33,7 @@ function Profile({onSubmit, handleLogout}) {
 
   return (
     <main className="profile">
-      <h1 className="profile__title">Привет, {name}!</h1>
+      <h1 className="profile__title">Привет, {currentUser.name}!</h1>
       {isEditing ? (
         <form className="profile__top" onSubmit={handleSubmitForm}>
           <div className="profile__details">
@@ -36,8 +45,14 @@ function Profile({onSubmit, handleLogout}) {
                 className="profile__text profile__input"
                 type="text"
                 name="name"
-                value={values.name}
-                onChange={handleChange}
+                value={formValues.name}
+                onChange={(e) => {
+                  handleChange(e);
+                  setFormValues({
+                    ...formValues,
+                    name: e.target.value,
+                  });
+                }}
               />
             </div>
             <div className="profile__line"></div>
@@ -49,8 +64,14 @@ function Profile({onSubmit, handleLogout}) {
                 className="profile__text profile__input"
                 type="email"
                 name="email"
-                value={values.email}
-                onChange={handleChange}
+                value={formValues.email}
+                onChange={(e) => {
+                  handleChange(e);
+                  setFormValues({
+                    ...formValues,
+                    email: e.target.value,
+                  });
+                }}
               />
             </div>
           </div>
@@ -58,7 +79,8 @@ function Profile({onSubmit, handleLogout}) {
             className="profile__save-button button"
             type="submit"
             onClick={onSubmit}
-            disabled={!isValid}>
+            disabled={!isValid}
+          >
             Сохранить
           </button>
         </form>
@@ -68,12 +90,12 @@ function Profile({onSubmit, handleLogout}) {
             <div className="profile__details">
               <div className="profile__info">
                 <p className="profile__text">Имя</p>
-                <p className="profile__text">{name}</p>
+                <p className="profile__text">{currentUser.name}</p>
               </div>
               <div className="profile__line"></div>
               <div className="profile__info">
                 <p className="profile__text">E-mail</p>
-                <p className="profile__text">{email}</p>
+                <p className="profile__text">{currentUser.email}</p>
               </div>
             </div>
           </div>
@@ -83,8 +105,16 @@ function Profile({onSubmit, handleLogout}) {
             </div>
           )}
           <div className="profile__bottom">
-            <button className="profile__link button" onClick={handleEditClick}>Редактировать</button>
-            <Link className="profile__link profile__link_red" to="/" onClick={handleLogout}>Выйти из аккаунта</Link>
+            <button className="profile__link button" onClick={handleEditClick}>
+              Редактировать
+            </button>
+            <Link
+              className="profile__link profile__link_red"
+              to="/"
+              onClick={handleLogout}
+            >
+              Выйти из аккаунта
+            </Link>
           </div>
         </>
       )}

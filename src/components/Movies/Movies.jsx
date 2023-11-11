@@ -1,41 +1,30 @@
-import React, {useState, useEffect, useCallback, useContext} from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
-import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import {moviesApi} from "../../utils/MoviesApi";
-import {SearchMoviesContext} from "../../contexts/SearchMoviesContext";
+import Preloader from '../Preloader/Preloader';
+import { moviesApi } from "../../utils/MoviesApi";
 
-function Movies({isLoading, onCardLike, likedMovies}) {
+function Movies({ isLoading, onCardLike, likedMovies }) {
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
-  const {
-    error,
-    searching,
-    searchedOnce,
-    searchQuery,
-    isShortMovie,
-    setSearchQuery,
-    setIsShortMovie,
-    setError,
-    setSearching,
-    setSearchedOnce
-  } = useContext(SearchMoviesContext);
+  const [error, setError] = useState('');
+  const [searching, setSearching] = useState(false);
+  const [searchedOnce, setSearchedOnce] = useState(false);
 
-  const saveSearchDataToLocalStorage = useCallback((query, isShortMovie, movies) => {
-    localStorage.setItem('searchQuery', query);
-    localStorage.setItem('isShortMovie', isShortMovie);
-    localStorage.setItem('foundMovies', JSON.stringify(movies));
-  }, []);
-
-  useEffect(() => {
-    const storedFoundMovies = localStorage.getItem('foundMovies');
-    if (storedFoundMovies) {
-      setFoundMovies(JSON.parse(storedFoundMovies));
-      setSearchedOnce(true);
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSearchedOnce(true);
+    setIsFormSubmitted(true);
+    if (searchQuery.trim() === '') {
+      setError('Нужно ввести ключевое слово');
+    } else {
+      setError('');
     }
-  }, []);
+  };
 
   useEffect(() => {
-    if (searchQuery && !searching) {
+    if (searchQuery && isFormSubmitted && !searching) {
       setSearching(true);
 
       moviesApi
@@ -47,49 +36,35 @@ function Movies({isLoading, onCardLike, likedMovies}) {
           setSearching(false);
           setFoundMovies(filteredMovies);
           setSearchedOnce(true);
-
-          saveSearchDataToLocalStorage(searchQuery, isShortMovie, filteredMovies);
         })
-        .catch(() => {
+        .catch((err) => {
           setSearching(false);
           setError('Во время запроса произошла ошибка. Попробуйте ещё раз.');
         });
     }
-  }, [searchQuery]);
+  }, [searchQuery, isFormSubmitted]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setError('');
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim() === '') {
-      setError('Нужно ввести ключевое слово');
-    } else {
-      setError('');
-    }
-  };
-
   return (
     <main className="movies">
       <SearchForm
-        isShortMovie={isShortMovie}
         searchQuery={searchQuery}
         error={error}
         handleSearchSubmit={handleSearchSubmit}
         handleSearchChange={handleSearchChange}
-        setIsShortMovie={setIsShortMovie}
       />
       {isLoading || searching ? (
-        <Preloader/>
-      ) : searchedOnce ? (
+        <Preloader />
+      ) : searchedOnce && isFormSubmitted ? (
         foundMovies.length > 0 ? (
           <MoviesCardList
             data={foundMovies}
             likedMovies={likedMovies}
             onCardLike={onCardLike}
-            isShortMovie={isShortMovie}
           />
         ) : (
           <p className="movies__status">{error || 'Ничего не найдено'}</p>

@@ -53,7 +53,7 @@ function App(props) {
     mainApi.login(data)
       .then(() => {
         setIsLoggedIn(true);
-        navigate("/profile");
+        navigate("/movies");
       })
       .catch((err) => console.log(err))
   }
@@ -131,7 +131,7 @@ function App(props) {
       .then((data) => {
         setData(data);
       })
-       .catch((err) => {
+      .catch((err) => {
         console.log(err);
       })
       .finally(() => {
@@ -156,73 +156,74 @@ function App(props) {
   }, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      {header}
-      <Routes>
-        <Route
-          exact path="/"
-          element={<Main/>}
-        />
-        <Route
-          exact path="/movies"
-          element={
-            <ProtectedRoute
-              element={
-                <Movies
-                  data={data}
-                  isLoading={isLoading}
-                  likedMovies={likedMovies}
-                  onCardLike={handleLikeClick}
-                />}
-              isLoggedIn={isLoggedIn}
-            />}
-        />
-        <Route
-          exact path="/saved-movies"
-          element={
-            <ProtectedRoute
-              element={<SavedMovies
-                data={likedMovies}
-                isLoading={false}
-                likedMovies={likedMovies}
-                handleLikeClick={handleLikeClick}
+    isLoading ? (
+      <CurrentUserContext.Provider value={currentUser}>
+        {header}
+        <Routes>
+          <Route
+            path="/"
+            element={<Main/>}
+          />
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute
+                element={
+                  <Movies
+                    data={data}
+                    isLoading={isLoading}
+                    likedMovies={likedMovies}
+                    onCardLike={handleLikeClick}
+                  />}
+                isLoggedIn={isLoggedIn}
               />}
-              isLoggedIn={isLoggedIn}
-            />}
-        />}
-        <Route
-          exact path="/signup"
-          element={<Register onRegistration={handleRegister}/>}
-        />
-        <Route
-          exact path="/signin"
-          element={
-            <Login
-              onAuthorization={handleLogin}
-              onCheckToken={tokenCheck}
-            />}
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute
-              element={
-                <Profile
-                  onSubmit={handleUpdateUser}
-                  handleLogout={handleLogout}
-                />
-              }
-              isLoggedIn={isLoggedIn}
-            />}
-        />
-        <Route
-          path="*"
-          element={<NotFound/>}
-        />
-      </Routes>
-      {footer}
-    </CurrentUserContext.Provider>
-  )
+          />
+          <Route
+            path="/saved-movies"
+            element={
+              <ProtectedRoute
+                element={<SavedMovies
+                  data={likedMovies}
+                  isLoading={false}
+                  likedMovies={likedMovies}
+                  handleLikeClick={handleLikeClick}
+                />}
+                isLoggedIn={isLoggedIn}
+              />}
+          />}
+          <Route
+            path="/signup"
+            element={<Register onRegistration={handleRegister}/>}
+          />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                onAuthorization={handleLogin}
+                onCheckToken={tokenCheck}
+              />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                element={
+                  <Profile
+                    onSubmit={handleUpdateUser}
+                    handleLogout={handleLogout}
+                  />
+                }
+                isLoggedIn={isLoggedIn}
+              />}
+          />
+          <Route
+            path="*"
+            element={<NotFound/>}
+          />
+        </Routes>
+        {footer}
+      </CurrentUserContext.Provider>
+    ) : (''))
 }
 
 export default App;
