@@ -11,7 +11,6 @@ const FormTemplate = ({
                         redirectLinkTitle,
                         nameForm,
                         onSubmit,
-                        error
                       }) => {
   const {values, errors, isValid, isSubmitting, handleChange, resetForm} = useFormWithValidation({});
 
@@ -119,7 +118,7 @@ const FormTemplate = ({
             </div>
           </fieldset>
         </div>
-        {error && <p className="form__error">{error}</p>}
+        {errors && <p className="form__error">Ошибка при авторизации. Пожалуйста, проверьте введенные данные.</p>}
         <div className="form__submit">
           <button
             className={`form__submit-button button ${!isValid && "form__submit-button_disabled"}`}
