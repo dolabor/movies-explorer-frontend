@@ -157,8 +157,8 @@ function App(props) {
   }, []);
 
   return (
-    isLoading ? (<Preloader />) : (
-            <CurrentUserContext.Provider value={currentUser}>
+    // isLoading ? (<Preloader/>) : (
+      <CurrentUserContext.Provider value={currentUser}>
         {header}
         <Routes>
           <Route
@@ -224,7 +224,8 @@ function App(props) {
         </Routes>
         {footer}
       </CurrentUserContext.Provider>
-    ))
+    // )
+  )
 }
 
 export default App;
