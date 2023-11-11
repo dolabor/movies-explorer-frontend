@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
-import {moviesApi} from "../../utils/MoviesApi";
+import { moviesApi } from '../../utils/MoviesApi';
 
-function Movies({isLoading, onCardLike, likedMovies}) {
-
+function Movies({ isLoading, onCardLike, likedMovies }) {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
@@ -15,16 +14,27 @@ function Movies({isLoading, onCardLike, likedMovies}) {
   const [isCardListVisible, setIsCardListVisible] = useState(true);
   const [isShortMovie, setIsShortMovie] = useState(false);
 
+  useEffect(() => {
+    const storedSearchQuery = localStorage.getItem('searchQuery') || '';
+    const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
+
+    setSearchQuery(storedSearchQuery);
+    setIsShortMovie(storedIsShortMovie);
+  }, []);
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setSearchedOnce(true);
     setIsFormSubmitted(true);
+
     if (searchQuery.trim() === '') {
       setError('Нужно ввести ключевое слово');
       setIsCardListVisible(false);
     } else {
       setError('');
       setIsCardListVisible(true);
+      localStorage.setItem('searchQuery', searchQuery);
+      localStorage.setItem('isShortMovie', isShortMovie.toString());
     }
   };
 
@@ -40,8 +50,9 @@ function Movies({isLoading, onCardLike, likedMovies}) {
       moviesApi
         .getMoviesList()
         .then((moviesList) => {
-          const filteredMovies = moviesList.filter((movie) =>
-            movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+          const filteredMovies = moviesList.filter(
+            (movie) =>
+              movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
           );
           setSearching(false);
           setFoundMovies(filteredMovies);
@@ -65,7 +76,7 @@ function Movies({isLoading, onCardLike, likedMovies}) {
         setIsShortMovie={setIsShortMovie}
       />
       {isLoading || searching ? (
-        <Preloader/>
+        <Preloader />
       ) : searchedOnce && isFormSubmitted ? (
         foundMovies.length > 0 ? (
           <MoviesCardList

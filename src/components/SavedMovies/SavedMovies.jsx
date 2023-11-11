@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
 function SavedMovies({data, isLoading, handleLikeClick}) {
   const [isShortMovie, setIsShortMovie] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const storedSearchQuery = localStorage.getItem('searchQuery') || '';
+  const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
   const [error, setError] = useState('');
 
   const handleSearchChange = (e) => {
@@ -16,10 +17,10 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
   return (
     <main className="saved-movies">
       <SearchForm
+        isShortMovie={isShortMovie}
         searchQuery={searchQuery}
         error={error}
         handleSearchChange={handleSearchChange}
-        isShortMovie={isShortMovie}
         setIsShortMovie={setIsShortMovie}
       />
       {isLoading ? (
@@ -30,7 +31,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
           likedMovies={data}
           isShortMovie={isShortMovie}
           onCardLike={card => handleLikeClick(card, true)}
-          isCardListVisible={false}
+          isCardListVisible={true}
         />
       )}
       <div className="saved-movies__divider"></div>
