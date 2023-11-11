@@ -1,37 +1,59 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
 function SavedMovies({data, isLoading, handleLikeClick}) {
-  const [isShortMovie, setIsShortMovie] = useState(false);
-  const storedSearchQuery = localStorage.getItem('searchQuery') || '';
-  const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
+  const [isShortMovie, setIsShortMovie] = useState(false);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    if (searchQuery.trim() === '') {
+      setError('Нужно ввести ключевое слово');
+      setFoundMovies([]);
+    } else {
+      setError('');
+
+      const filteredMovies = data.filter(
+        (movie) =>
+          movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFoundMovies(filteredMovies);
+    }
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setError('');
   };
 
+  useEffect(() => {
+    setFoundMovies([]);
+  }, [data]);
+
   return (
-    <main className="saved-movies">
+     <main className="saved-movies">
       <SearchForm
         isShortMovie={isShortMovie}
         searchQuery={searchQuery}
         error={error}
         handleSearchChange={handleSearchChange}
         setIsShortMovie={setIsShortMovie}
+        onSearchSubmit={handleSearchSubmit}
       />
       {isLoading ? (
-        <Preloader/>
+        <Preloader />
       ) : (
         <MoviesCardList
-          data={data}
+          data={foundMovies.length > 0 ? foundMovies : data}
           likedMovies={data}
           isShortMovie={isShortMovie}
           onCardLike={card => handleLikeClick(card, true)}
-          isCardListVisible={true}
+          setShowMoreVisible={false}
         />
       )}
       <div className="saved-movies__divider"></div>
