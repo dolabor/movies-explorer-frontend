@@ -3,7 +3,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import { moviesApi } from "../../utils/MoviesApi";
-import { SearchMoviesContext } from "../../contexts/SearchMoviesContext";
 
 function Movies({ isLoading, onCardLike, likedMovies }) {
 
@@ -13,7 +12,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
   const [error, setError] = useState('');
   const [searching, setSearching] = useState(false);
   const [searchedOnce, setSearchedOnce] = useState(false);
-  const [isProfileDataChanged, setIsProfileDataChanged] = useState(false);
+  const [isCardListVisible, setIsCardListVisible] = useState(true);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +20,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
     setIsFormSubmitted(true);
     if (searchQuery.trim() === '') {
       setError('Нужно ввести ключевое слово');
+      setIsCardListVisible(false);
     } else {
       setError('');
     }
@@ -68,6 +68,7 @@ function Movies({ isLoading, onCardLike, likedMovies }) {
             data={foundMovies}
             likedMovies={likedMovies}
             onCardLike={onCardLike}
+            isCardListVisible={isCardListVisible}
           />
         ) : (
           <p className="movies__status">{error || 'Ничего не найдено'}</p>
