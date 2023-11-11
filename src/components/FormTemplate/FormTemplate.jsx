@@ -15,18 +15,18 @@ const FormTemplate = ({
                       }) => {
   const {values, errors, isValid, isSubmitting, handleChange, resetForm} = useFormWithValidation({});
 
-  const handleSubmitForm = (evt) => {
+const handleSubmitForm = (evt) => {
     evt.preventDefault();
     onSubmit(values);
     resetForm();
-  }
+  };
 
   return (
     <section className="form">
       <NavLink to="/" className="form__logo-link">
         <img className="form__logo" src={formLogo} alt="Логотип Movies Explorer"/>
       </NavLink>
-      <form className="form__container">
+      <form onSubmit={handleSubmitForm} className="form__container">
         <div className="form__top">
           <h1 className="form__title">{formTitle}</h1>
           <fieldset className="form__inputs">
@@ -125,7 +125,6 @@ const FormTemplate = ({
             className={`form__submit-button button ${!isValid && "form__submit-button_disabled"}`}
             type="submit"
             disabled={!isValid || isSubmitting}
-            onClick={handleSubmitForm}
           >
             {titleButton}
           </button>

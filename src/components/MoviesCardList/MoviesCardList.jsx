@@ -18,14 +18,14 @@ function MoviesCardList({ data, onCardLike, likedMovies, isShortMovie }) {
     }
   };
 
-  const handleWindowResize = () => {
+ const handleWindowResize = () => {
     const screenWidth = window.innerWidth;
 
     if (screenWidth >= 1280) {
       setVisibleCards(4);
     } else if (screenWidth >= 768) {
       setVisibleCards(4);
-    } else if (screenWidth >= 480) {
+    } else if (screenWidth >= 320 && screenWidth < 480) {
       setVisibleCards(1);
     } else {
       setVisibleCards(2);
