@@ -109,7 +109,7 @@ function Profile({onSubmit, handleLogout, error}) {
               </div>
             </div>
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="profile__error-message">{error}</p>}
           {isProfileEdited && (
             <div className="profile__message">
               <p className="profile__success-message">Профиль успешно обновлен!</p>

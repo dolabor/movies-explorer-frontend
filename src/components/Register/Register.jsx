@@ -13,9 +13,9 @@ const Register = ({onRegistration, error}) => {
         redirectLinkTitle="Войти"
         nameForm="signup"
         onSubmit={onRegistration}
+        error={error}
       >
       </FormTemplate>
-      {error && <p className="error-message">{error}</p>}
     </main>
   )
 }
