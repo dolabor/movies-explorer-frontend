@@ -49,6 +49,9 @@ function App(props) {
       .catch(() => {
         setIsLoggedIn(false);
       })
+      .finally(() => {
+        setIsTokenCheckComplete(true);
+      });
   }
 
   function handleLogin(data) {
@@ -112,20 +115,8 @@ function App(props) {
   ]);
 
   React.useEffect(() => {
-    const tokenCheck = async () => {
-      try {
-        await mainApi.checkToken();
-        setIsLoggedIn(true);
-        navigate("/", {replace: true});
-      } catch (error) {
-        setIsLoggedIn(false);
-      } finally {
-        setIsTokenCheckComplete(true);
-      }
-    };
-
     tokenCheck();
-  }, [navigate]);
+  }, [navigate])
 
   React.useEffect(() => {
     if (isLoggedIn) {
@@ -171,7 +162,8 @@ function App(props) {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {isTokenCheckComplete ? (
+      {isTokenCheckComplete ? (<Preloader/>
+      ) : (
         <>
           {header}
           <Routes>
@@ -238,8 +230,6 @@ function App(props) {
           </Routes>
           {footer}
         </>
-      ) : (
-        <Preloader/>
       )}
     </CurrentUserContext.Provider>
   )
