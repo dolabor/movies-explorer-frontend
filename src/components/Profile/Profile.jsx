@@ -29,7 +29,6 @@ function Profile({onSubmit, handleLogout}) {
       name: formValues.name,
       email: formValues.email,
     };
-    console.log("Submitting form with data:", formData);
     onSubmit(formData);
     setIsEditing(false);
     setIsProfileEdited(true);
@@ -91,7 +90,6 @@ function Profile({onSubmit, handleLogout}) {
           <button
             className={`profile__save-button button ${(!isValid || !isFormChanged()) && "profile__save-button_disabled"}`}
             type="submit"
-            onClick={onSubmit}
             disabled={!isValid || !isFormChanged()}
           >
             Сохранить
