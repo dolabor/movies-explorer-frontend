@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ data, onCardLike, likedMovies, isShortMovie }) {
+function MoviesCardList({data, onCardLike, likedMovies, isShortMovie}) {
   const [visibleCards, setVisibleCards] = useState(0);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
+  const [addMoreCards, setAddMoreCards] = useState(0);
 
   const handleShowMore = () => {
     const nextRowStart = currentCards.length;
-    const nextRowEnd = nextRowStart + visibleCards;
+    const nextRowEnd = nextRowStart + addMoreCards;
     const nextRow = data.slice(nextRowStart, nextRowEnd);
 
     setCurrentCards([...currentCards, ...nextRow]);
@@ -18,17 +19,15 @@ function MoviesCardList({ data, onCardLike, likedMovies, isShortMovie }) {
     }
   };
 
- const handleWindowResize = () => {
+  const handleWindowResize = () => {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth >= 1280) {
-      setVisibleCards(4);
-    } else if (screenWidth >= 768) {
-      setVisibleCards(4);
+    if (screenWidth >= 768) {
+      setVisibleCards(12);
+      setAddMoreCards(4);
     } else if (screenWidth >= 320 && screenWidth < 480) {
-      setVisibleCards(1);
-    } else {
-      setVisibleCards(2);
+      setVisibleCards(5);
+      setAddMoreCards(2);
     }
   };
 
