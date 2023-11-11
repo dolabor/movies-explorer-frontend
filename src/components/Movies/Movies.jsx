@@ -43,7 +43,7 @@ function Movies({ isLoading, onCardLike, likedMovies}) {
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
-  }, [searchQuery]);
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
