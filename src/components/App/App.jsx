@@ -73,9 +73,9 @@ function App(props) {
         setIsLoggedIn(true);
         navigate("/movies");
       })
-      .catch((err) => {
+      .catch(() => {
         setError('Ошибка при авторизации. Пожалуйста, проверьте введенные данные.');
-        console.error(err);
+        console.error(error);
       });
   }
 
