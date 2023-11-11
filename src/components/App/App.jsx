@@ -13,6 +13,7 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {moviesApi} from "../../utils/MoviesApi";
 import {mainApi} from "../../utils/MainApi";
+import Preloader from "../Preloader/Preloader";
 
 function App(props) {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -156,8 +157,8 @@ function App(props) {
   }, []);
 
   return (
-    isLoading ? (
-      <CurrentUserContext.Provider value={currentUser}>
+    isLoading ? (<Preloader />) : (
+            <CurrentUserContext.Provider value={currentUser}>
         {header}
         <Routes>
           <Route
@@ -223,7 +224,7 @@ function App(props) {
         </Routes>
         {footer}
       </CurrentUserContext.Provider>
-    ) : (''))
+    ))
 }
 
 export default App;
