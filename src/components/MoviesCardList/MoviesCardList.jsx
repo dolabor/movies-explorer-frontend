@@ -54,10 +54,10 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
   useEffect(() => {
     if (isShortMovie) {
       setCurrentCards(data.filter(item => item.duration < shortMoviesDuration).slice(0, visibleCards));
-    } else {
+    } else if (isShowMoreEnabled) {
       setCurrentCards(data.slice(0, visibleCards));
     }
-  }, [data, isShortMovie, visibleCards]);
+  }, [data, isShortMovie, visibleCards, isShowMoreEnabled]);
 
   return (
     <section className="movies-card-list">
