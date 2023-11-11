@@ -36,7 +36,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
   }, [data]);
 
   return (
-     <main className="saved-movies">
+    <main className="saved-movies">
       <SearchForm
         isShortMovie={isShortMovie}
         searchQuery={searchQuery}
@@ -46,14 +46,14 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
         onSearchSubmit={handleSearchSubmit}
       />
       {isLoading ? (
-        <Preloader />
+        <Preloader/>
       ) : (
         <MoviesCardList
           data={foundMovies.length > 0 ? foundMovies : data}
           likedMovies={data}
           isShortMovie={isShortMovie}
           onCardLike={card => handleLikeClick(card, true)}
-          showMoreVisible={false}
+          isShowMoreEnabled={false}
           isCardListVisible={true}
         />
       )}

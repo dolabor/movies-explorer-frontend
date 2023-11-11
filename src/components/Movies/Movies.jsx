@@ -43,7 +43,7 @@ function Movies({ isLoading, onCardLike, likedMovies}) {
 
     setSearchQuery(storedSearchQuery);
     setIsShortMovie(storedIsShortMovie);
-  }, []);
+  }, [searchQuery]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -86,6 +86,7 @@ function Movies({ isLoading, onCardLike, likedMovies}) {
             onCardLike={onCardLike}
             isCardListVisible={isCardListVisible}
             isShortMovie={isShortMovie}
+            isShowMoreEnabled={true}
           />
         ) : (
           <p className="movies__status">{error || 'Ничего не найдено'}</p>

@@ -7,7 +7,7 @@ import {
   shortMoviesDuration
 } from "../../utils/constants";
 
-function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardListVisible}) {
+function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardListVisible, isShowMoreEnabled}) {
   const [visibleCards, setVisibleCards] = useState(0);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
@@ -19,8 +19,6 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
     const nextRow = data.slice(nextRowStart, nextRowEnd);
 
     setCurrentCards([...currentCards, ...nextRow]);
-
-    console.log("nextRowEnd", nextRowEnd, data.length);
 
     if (nextRowEnd >= data.length) {
       setShowMoreVisible(false);
@@ -83,7 +81,7 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
             })}
           </ul>
 
-          {visibleCards < data.length && showMoreVisible && (
+          {visibleCards < data.length && showMoreVisible && isShowMoreEnabled && (
             <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
               Еще
             </button>
