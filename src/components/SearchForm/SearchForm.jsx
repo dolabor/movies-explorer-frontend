@@ -1,7 +1,8 @@
 import React from 'react';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({handleSearchSubmit, searchQuery, handleSearchChange, isShortMovie, setIsShortMovie, error}) {
+function SearchForm({handleSearchSubmit, searchQuery, handleSearchChange, isShortMovie, handleShortMoviesToggle, error}) {
+
   return (
     <form className="search-form" onSubmit={handleSearchSubmit}>
       <div className="search-form__container">
@@ -14,7 +15,7 @@ function SearchForm({handleSearchSubmit, searchQuery, handleSearchChange, isShor
         />
         <button type="submit" className="search-form__button button"></button>
       </div>
-      <FilterCheckbox value={isShortMovie} onChange={() => setIsShortMovie(!isShortMovie)}/>
+      <FilterCheckbox value={isShortMovie} onChange={handleShortMoviesToggle}/>
       {error && <p className="search-form__error">{error}</p>}
     </form>
   );
