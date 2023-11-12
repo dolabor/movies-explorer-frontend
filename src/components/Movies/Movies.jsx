@@ -20,6 +20,7 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
 
   const updateCardList = () => {
     setIsLoading(true);
+    setError('');
 
     moviesApi
       .getMoviesList()
