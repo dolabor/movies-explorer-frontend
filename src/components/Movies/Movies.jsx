@@ -13,11 +13,6 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
   const [error, setError] = useState('Начните поиск');
   const [isShortMovie, setIsShortMovie] = useState(storedIsShortMovie);
 
-  const handleShortMoviesToggle = () => {
-    setIsShortMovie(!isShortMovie);
-    localStorage.setItem('isShortMovie', (!isShortMovie).toString());
-  }
-
   const updateCardList = () => {
     setIsLoading(true);
     setError('');
@@ -45,6 +40,12 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
       .finally(() => {
         setIsLoading(false);
       })
+  }
+
+  const handleShortMoviesToggle = () => {
+    setIsShortMovie(!isShortMovie);
+    updateCardList();
+    localStorage.setItem('isShortMovie', (!isShortMovie).toString());
   }
 
   useEffect(() => {
