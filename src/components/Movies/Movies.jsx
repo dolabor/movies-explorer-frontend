@@ -32,6 +32,8 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
 
         if (filteredMovies.length === 0) {
           setError("Ничего не найдено");
+        } else {
+          setError('');
         }
       })
       .catch(() => {
@@ -55,7 +57,6 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
       setError('Нужно ввести ключевое слово');
       setIsCardListVisible(false);
     } else {
-      setError('');
       updateCardList();
       setIsCardListVisible(true);
       localStorage.setItem('searchQuery', searchQuery);
@@ -77,7 +78,7 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
         handleShortMoviesToggle={handleShortMoviesToggle}
       />
       {isLoading && <Preloader/>}
-      {!error && foundMovies.length > 0 &&
+      {!isLoading && !error && foundMovies.length > 0 &&
         <MoviesCardList
           data={foundMovies}
           likedMovies={likedMovies}
