@@ -23,6 +23,12 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
           movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFoundMovies(filteredMovies);
+
+      if (filteredMovies.length === 0) {
+        setError("Ничего не найдено");
+      } else {
+        setError('');
+      }
     }
   };
 
