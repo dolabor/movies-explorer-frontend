@@ -11,11 +11,11 @@ class MoviesApi {
         this._moviesListPromise = fetch(`${this._baseUrl}/beatfilm-movies`, {
           headers: this._headers
         })
-          .then(res => this._checkResponse(res))
-          .then((data) => resolve(data))
-          .catch((error) => reject(error));
       }
-      return this._moviesListPromise;
+      return this._moviesListPromise
+        .then(res => this._checkResponse(res))
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
     })
   }
 
