@@ -3,6 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import {moviesApi} from '../../utils/MoviesApi';
+import {shortMoviesDuration} from "../../utils/constants";
 
 function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
   const storedSearchQuery = localStorage.getItem('searchQuery') || '';
@@ -25,8 +26,10 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
       .getMoviesList()
       .then((moviesList) => {
         const filteredMovies = moviesList.filter(
-          (movie) =>
-            movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+          (movie) => {
+            return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
+              (isShortMovie ? movie.duration >= shortMoviesDuration : true)
+          }
         );
         setFoundMovies(filteredMovies);
 
