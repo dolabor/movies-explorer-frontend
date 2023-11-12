@@ -25,7 +25,7 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
         const filteredMovies = moviesList.filter(
           (movie) => {
             return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
-              (isShortMovie ? movie.duration >= shortMoviesDuration : true)
+              (isShortMovie ? movie.duration <= shortMoviesDuration : true)
           }
         );
         setFoundMovies(filteredMovies);
