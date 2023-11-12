@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import formLogo from "../../images/header-logo.svg";
 import {Link, NavLink} from "react-router-dom";
 import {useFormWithValidation} from "../../hooks/useFormValidation";
@@ -11,15 +11,20 @@ const FormTemplate = ({
                         redirectLinkTitle,
                         nameForm,
                         onSubmit,
-                        error
+                        error,
+                        setError
                       }) => {
   const {values, errors, isValid, isSubmitting, handleChange, resetForm} = useFormWithValidation({});
 
-const handleSubmitForm = (evt) => {
+  const handleSubmitForm = (evt) => {
     evt.preventDefault();
     onSubmit(values);
     resetForm();
   };
+
+  useEffect(() => {
+    setError("");
+  }, []);
 
   return (
     <section className="form">

@@ -208,7 +208,7 @@ function App(props) {
             />}
             <Route
               path="/signup"
-              element={<Register onRegistration={handleRegister} error={error}/>}
+              element={<Register onRegistration={handleRegister} error={error} setError={setError}/>}
             />
             <Route
               path="/signin"
@@ -217,6 +217,7 @@ function App(props) {
                   onAuthorization={handleLogin}
                   onCheckToken={tokenCheck}
                   error={error}
+                  setError={setError}
                 />}
             />
             <Route
