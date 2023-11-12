@@ -2,13 +2,19 @@ class MoviesApi {
   constructor({baseUrl, headers}) {
     this._headers = headers;
     this._baseUrl = baseUrl;
+    this._moviesListPromise = null;
   }
 
   getMoviesList() {
-    return fetch(`${this._baseUrl}/beatfilm-movies`, {
-      headers: this._headers
+    return new Promise( () => {
+      if (!this._moviesListPromise) {
+        this._moviesListPromise = fetch(`${this._baseUrl}/beatfilm-movies`, {
+          headers: this._headers
+        })
+          .then(res => this._checkResponse(res))
+      }
+      return this._moviesListPromise;
     })
-      .then(res => this._checkResponse(res))
   }
 
   _checkResponse(res) {
