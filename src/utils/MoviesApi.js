@@ -6,12 +6,14 @@ class MoviesApi {
   }
 
   getMoviesList() {
-    return new Promise( () => {
+    return new Promise((resolve, reject) => {
       if (!this._moviesListPromise) {
         this._moviesListPromise = fetch(`${this._baseUrl}/beatfilm-movies`, {
           headers: this._headers
         })
           .then(res => this._checkResponse(res))
+          .then((data) => resolve(data))
+          .catch((error) => reject(error));
       }
       return this._moviesListPromise;
     })
