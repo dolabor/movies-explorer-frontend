@@ -45,7 +45,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
   };
 
   useEffect(() => {
-    setFoundMovies([]);
+    setFoundMovies(data);
   }, [data]);
 
   return (
