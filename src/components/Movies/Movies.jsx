@@ -13,8 +13,10 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
   const [error, setError] = useState('Начните поиск');
   const [isShortMovie, setIsShortMovie] = useState(storedIsShortMovie);
 
-  const updateCardList = () => {
-    setIsLoading(true);
+  const updateCardList = (shouldToggleIsLoading = true) => {
+    if (shouldToggleIsLoading) {
+      setIsLoading(true);
+    }
     setError('');
 
     moviesApi
@@ -38,13 +40,15 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
         setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
       })
       .finally(() => {
-        setIsLoading(false);
+        if (shouldToggleIsLoading) {
+          setIsLoading(false);
+        }
       })
   }
 
   const handleShortMoviesToggle = () => {
     setIsShortMovie(!isShortMovie);
-    updateCardList();
+    updateCardList(false);
     localStorage.setItem('isShortMovie', (!isShortMovie).toString());
   }
 
