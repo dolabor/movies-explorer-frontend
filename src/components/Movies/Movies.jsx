@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import {moviesApi} from '../../utils/MoviesApi';
 
-function Movies({isLoading, onCardLike, likedMovies}) {
+function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
   const storedSearchQuery = localStorage.getItem('searchQuery') || '';
   const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
   const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
@@ -19,6 +19,8 @@ function Movies({isLoading, onCardLike, likedMovies}) {
   }
 
   const updateCardList = () => {
+    setIsLoading(true);
+
     moviesApi
       .getMoviesList()
       .then((moviesList) => {
@@ -34,16 +36,16 @@ function Movies({isLoading, onCardLike, likedMovies}) {
       })
       .catch(() => {
         setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-      });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   useEffect(() => {
     if (storedSearchQuery) {
       updateCardList();
     }
-
-    setSearchQuery(storedSearchQuery);
-    setIsShortMovie(storedIsShortMovie);
   }, []);
 
   const handleSearchSubmit = (e) => {
@@ -62,7 +64,6 @@ function Movies({isLoading, onCardLike, likedMovies}) {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setError('');
   };
 
   return (
@@ -76,7 +77,6 @@ function Movies({isLoading, onCardLike, likedMovies}) {
         handleShortMoviesToggle={handleShortMoviesToggle}
       />
       {isLoading && <Preloader/>}
-      {error && <p className="movies__status">{error}</p>}
       {searchQuery !== "" && !error && foundMovies.length > 0 &&
         <MoviesCardList
           data={foundMovies}

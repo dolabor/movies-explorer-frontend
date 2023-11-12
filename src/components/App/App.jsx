@@ -153,24 +153,6 @@ function App(props) {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    if (moviesData.length === 0) {
-      setIsLoading(true);
-
-      moviesApi
-        .getMoviesList()
-        .then((data) => {
-          setMoviesData(data);
-        })
-        .catch((err) => {
-          console.error(err);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [moviesData]);
-
-  React.useEffect(() => {
     setIsLoading(true);
 
     mainApi
@@ -206,6 +188,7 @@ function App(props) {
                       isLoading={isLoading}
                       likedMovies={likedMovies}
                       onCardLike={handleLikeClick}
+                      setIsLoading={setIsLoading}
                     />}
                   isLoggedIn={isLoggedIn}
                 />}
