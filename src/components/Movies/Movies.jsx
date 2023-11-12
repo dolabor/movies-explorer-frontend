@@ -77,7 +77,7 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
         handleShortMoviesToggle={handleShortMoviesToggle}
       />
       {isLoading && <Preloader/>}
-      {searchQuery !== "" && !error && foundMovies.length > 0 &&
+      {!error && foundMovies.length > 0 &&
         <MoviesCardList
           data={foundMovies}
           likedMovies={likedMovies}
