@@ -4,39 +4,36 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import {moviesApi} from '../../utils/MoviesApi';
 
-function Movies({ isLoading, onCardLike, likedMovies}) {
-  const [searchQuery, setSearchQuery] = useState('');
+function Movies({isLoading, onCardLike, likedMovies}) {
+  const storedSearchQuery = localStorage.getItem('searchQuery') || '';
+  const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
+  const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
   const [searching, setSearching] = useState(false);
   const [searchedOnce, setSearchedOnce] = useState(false);
   const [isCardListVisible, setIsCardListVisible] = useState(true);
-  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isShortMovie, setIsShortMovie] = useState(storedIsShortMovie);
 
   const updateCardList = () => {
     moviesApi
-        .getMoviesList()
-        .then((moviesList) => {
-          const filteredMovies = moviesList.filter(
-            (movie) =>
-              movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-          setSearching(false);
-          setFoundMovies(filteredMovies);
-          setSearchedOnce(true);
-
-          localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
-        })
-        .catch(() => {
-          setSearching(false);
-          setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-        });
+      .getMoviesList()
+      .then((moviesList) => {
+        const filteredMovies = moviesList.filter(
+          (movie) =>
+            movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setSearching(false);
+        setFoundMovies(filteredMovies);
+        setSearchedOnce(true);
+      })
+      .catch(() => {
+        setSearching(false);
+        setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+      });
   }
 
   useEffect(() => {
-    const storedSearchQuery = localStorage.getItem('searchQuery') || '';
-    const storedIsShortMovie = localStorage.getItem('isShortMovie') === 'true';
-
     if (storedSearchQuery) {
       updateCardList();
     }
