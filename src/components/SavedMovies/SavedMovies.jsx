@@ -26,6 +26,10 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
     }
   };
 
+  const handleShortMoviesToggle = () => {
+    setIsShortMovie(!isShortMovie);
+  }
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setError('');
@@ -43,7 +47,8 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
         error={error}
         handleSearchChange={handleSearchChange}
         setIsShortMovie={setIsShortMovie}
-        onSearchSubmit={handleSearchSubmit}
+        handleSearchSubmit={handleSearchSubmit}
+        handleShortMoviesToggle={handleShortMoviesToggle}
       />
       {isLoading ? (
         <Preloader/>
