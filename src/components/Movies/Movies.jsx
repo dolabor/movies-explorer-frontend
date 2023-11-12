@@ -10,7 +10,6 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
   const [searchQuery, setSearchQuery] = useState(storedSearchQuery);
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('Начните поиск');
-  const [isCardListVisible, setIsCardListVisible] = useState(true);
   const [isShortMovie, setIsShortMovie] = useState(storedIsShortMovie);
 
   const handleShortMoviesToggle = () => {
@@ -56,10 +55,8 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
 
     if (searchQuery.trim() === '') {
       setError('Нужно ввести ключевое слово');
-      setIsCardListVisible(false);
     } else {
       updateCardList();
-      setIsCardListVisible(true);
       localStorage.setItem('searchQuery', searchQuery);
     }
   };
@@ -84,7 +81,6 @@ function Movies({isLoading, onCardLike, likedMovies, setIsLoading}) {
           data={foundMovies}
           likedMovies={likedMovies}
           onCardLike={onCardLike}
-          isCardListVisible={isCardListVisible}
           isShortMovie={isShortMovie}
           isShowMoreEnabled={true}
         />}

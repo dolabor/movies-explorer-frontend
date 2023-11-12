@@ -7,7 +7,7 @@ import {
   shortMoviesDuration
 } from "../../utils/constants";
 
-function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardListVisible, isShowMoreEnabled}) {
+function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isShowMoreEnabled}) {
   const [visibleCards, setVisibleCards] = useState(0);
   const [currentCards, setCurrentCards] = useState([]);
   const [showMoreVisible, setShowMoreVisible] = useState(true);
@@ -21,7 +21,7 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
 
     setCurrentCards([...currentCards, ...nextRow]);
 
-    if (nextRowEnd >= data.length) {
+    if (nextRowEnd > data.length) {
       setShowMoreVisible(false);
     }
   };
@@ -64,33 +64,29 @@ function MoviesCardList({data, onCardLike, likedMovies, isShortMovie, isCardList
 
   return (
     <section className="movies-card-list">
-      {isCardListVisible ? (
-        <>
-          <ul className="movies-card-list__grid">
-            {currentCards.map((movie) => {
-              const isLiked = likedMovies.some((movieCard) => {
-                return (movieCard.id || movieCard.movieId) === movie.id;
-              });
+      <ul className="movies-card-list__grid">
+        {currentCards.map((movie) => {
+          const isLiked = likedMovies.some((movieCard) => {
+            return (movieCard.id || movieCard.movieId) === movie.id;
+          });
 
-              return (
-                <li key={movie.id} className="movies-card-list__item">
-                  <MoviesCard
-                    movie={movie}
-                    onCardLike={onCardLike}
-                    isLiked={isLiked}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          return (
+            <li key={movie.id} className="movies-card-list__item">
+              <MoviesCard
+                movie={movie}
+                onCardLike={onCardLike}
+                isLiked={isLiked}
+              />
+            </li>
+          );
+        })}
+      </ul>
 
-          {currentCards < data.length && showMoreVisible && isShowMoreEnabled && (
-            <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
-              Еще
-            </button>
-          )}
-        </>
-      ) : ("")}
+      {currentCards.length < data.length && showMoreVisible && isShowMoreEnabled && (
+        <button className="movies-card-list__more-button button" type="button" onClick={handleShowMore}>
+          Еще
+        </button>
+      )}
     </section>
   );
 }
