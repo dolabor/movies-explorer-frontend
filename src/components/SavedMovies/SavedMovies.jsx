@@ -14,7 +14,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
     const filteredMovies = data.filter(
       (movie) =>
         movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (shortMoviesState ? movie.duration >= shortMoviesDuration : true)
+        (shortMoviesState ? movie.duration <= shortMoviesDuration : true)
     );
     setFoundMovies(filteredMovies);
 
