@@ -201,6 +201,7 @@ function App(props) {
                     data={likedMovies}
                     isLoading={isLoading}
                     likedMovies={likedMovies}
+                    setIsLoading={setIsLoading}
                     handleLikeClick={handleLikeClick}
                   />}
                   isLoggedIn={isLoggedIn}
