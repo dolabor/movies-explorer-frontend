@@ -49,6 +49,7 @@ function SavedMovies({data, isLoading, handleLikeClick}) {
 
   useEffect(() => {
     setFoundMovies(data);
+    updateCardList();
   }, [data]);
 
   return (
