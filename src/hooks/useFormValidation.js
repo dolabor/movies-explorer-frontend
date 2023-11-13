@@ -1,34 +1,29 @@
-import React from "react";
+import React, {useCallback} from "react";
 
-export default function useFormValidation({name, email, password}) {
-  const [values, setValues] = React.useState({name, email, password});
+export function useFormWithValidation() {
+  const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const handleChange = (evt) => {
-    const name = evt.target.name;
-    const value = evt.target.value;
-    const validationMessage = evt.target.validationMessage;
-    const form = evt.target.form;
-
-    setValues((previousValues) => {
-      return {
-        ...previousValues,
-        [name]: value
-      }
-    });
-
-    setErrors((previousErrors) => {
-      return {
-        ...previousErrors,
-        [name]: validationMessage
-      }
-    });
-
-    setIsValid(form.checkValidity());
+  const handleChange = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({...values, [name]: value});
+    setErrors({...errors, [name]: target.validationMessage});
+    setIsValid(target.closest("form").checkValidity());
   };
 
-  return (
-    { values, setValues, errors, isValid, handleChange }
-  )
+  const resetForm = useCallback(
+    (newValues = {}, newErrors = {}, newIsValid = false, newIsSubmitting = false) => {
+      setValues(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+      setIsSubmitting(newIsSubmitting);
+    },
+    [setValues, setErrors, setIsValid, setIsSubmitting]
+  );
+
+  return {values, setValues, handleChange, errors, isSubmitting, isValid, resetForm};
 }

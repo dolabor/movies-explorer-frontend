@@ -1,7 +1,7 @@
 import React from 'react';
 import FormTemplate from "../FormTemplate/FormTemplate";
 
-const Login = ({onAuthorization}) => {
+const Login = ({onAuthorization, error, setError}) => {
 
   function handleSubmit(data) {
     onAuthorization(data);
@@ -17,6 +17,8 @@ const Login = ({onAuthorization}) => {
         redirectRoute="/signup"
         redirectLinkTitle="Регистрация"
         nameForm="signin"
+        error={error}
+        setError={setError}
       >
       </FormTemplate>
     </main>

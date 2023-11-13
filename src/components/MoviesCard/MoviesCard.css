@@ -16,6 +16,10 @@
   max-width: 100%;
 }
 
+.movies-card__image:hover {
+  opacity: 0.7;
+}
+
 .movies-card__intro {
   display: flex;
   justify-content: space-between;

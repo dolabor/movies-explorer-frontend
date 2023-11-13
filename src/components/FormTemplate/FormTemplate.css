@@ -137,6 +137,20 @@
   cursor: pointer;
 }
 
+.form__error {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  color: #EE3465;
+  border: none;
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
 .form__submit-button:hover {
   opacity: 0.8;
 }

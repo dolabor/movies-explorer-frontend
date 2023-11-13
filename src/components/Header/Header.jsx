@@ -61,16 +61,12 @@ function Header({isLoggedIn}) {
           </>
         ) : (
           <div className="header__auth">
-            {location.pathname === '/signin' && (
-              <NavLink to="/signup" className="header__link">
-                Регистрация
-              </NavLink>
-            )}
-            {location.pathname === '/signup' && (
-              <NavLink to="/signin" className="header__login-button button">
-                Войти
-              </NavLink>
-            )}
+            <NavLink to="/signup" className="header__signup">
+              Регистрация
+            </NavLink>
+            <NavLink to="/signin" className="header__login-button button">
+              Войти
+            </NavLink>
           </div>
         )}
       </div>

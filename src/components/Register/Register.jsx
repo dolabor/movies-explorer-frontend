@@ -1,7 +1,7 @@
 import React from "react";
 import FormTemplate from "../FormTemplate/FormTemplate";
 
-const Register = () => {
+const Register = ({onRegistration, error, setError}) => {
 
   return (
     <main className="register">
@@ -12,6 +12,9 @@ const Register = () => {
         redirectRoute="/signin"
         redirectLinkTitle="Войти"
         nameForm="signup"
+        onSubmit={onRegistration}
+        error={error}
+        setError={setError}
       >
       </FormTemplate>
     </main>

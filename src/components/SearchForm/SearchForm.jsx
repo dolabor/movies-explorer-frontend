@@ -1,17 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({onSearch}) {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    onSearch(searchQuery);
-  };
+function SearchForm({handleSearchSubmit, searchQuery, handleSearchChange, isShortMovie, handleShortMoviesToggle, error}) {
 
   return (
     <form className="search-form" onSubmit={handleSearchSubmit}>
@@ -21,11 +11,12 @@ function SearchForm({onSearch}) {
           className="search-form__input"
           placeholder="Фильм"
           value={searchQuery}
-          onChange={handleSearchChange}>
-        </input>
+          onChange={handleSearchChange}
+        />
         <button type="submit" className="search-form__button button"></button>
       </div>
-      <FilterCheckbox/>
+      <FilterCheckbox value={isShortMovie} onChange={handleShortMoviesToggle}/>
+      {error && <p className="search-form__error">{error}</p>}
     </form>
   );
 }

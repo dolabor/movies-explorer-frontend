@@ -1,5 +1,6 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
+@import url(./components/Button/Button.css);
 @import url(./components/SectionTitle/SectionTitle.css);
 @import url(./components/Navigation/Navigation.css);
 @import url(./components/Header/Header.css);
@@ -9,7 +10,6 @@
 @import url(./components/Techs/Techs.css);
 @import url(./components/Body/Body.css);
 @import url(./components/SavedMovies/SavedMovies.css);
-@import url(./components/Button/Button.css);
 @import url(./components/AboutMe/AboutMe.css);
 @import url(./components/Portfolio/Portfolio.css);
 @import url(./components/Footer/Footer.css);
