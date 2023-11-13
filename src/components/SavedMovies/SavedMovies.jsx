@@ -64,12 +64,12 @@ function SavedMovies({ data, isLoading, handleLikeClick }) {
         handleShortMoviesToggle={handleShortMoviesToggle}
       />
       {isLoading && <Preloader/>}
-      {!isLoading && !error && foundMovies.length > 0 &&
+      {!isLoading && foundMovies.length > 0 &&
         <MoviesCardList
           data={foundMovies}
           likedMovies={data}
           isShortMovie={isShortMovie}
-          onCardLike={handleLikeClick}
+          onCardLike={(card) => handleLikeClick(card, true)}
           isShowMoreEnabled={false}
           isCardListVisible={true}
         />
