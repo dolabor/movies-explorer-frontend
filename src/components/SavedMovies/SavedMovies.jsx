@@ -68,9 +68,8 @@ function SavedMovies({data, isLoading, handleLikeClick, setIsLoading}) {
         handleSearchSubmit={handleSearchSubmit}
         handleShortMoviesToggle={handleShortMoviesToggle}
       />
-      {isLoading ? (
-        <Preloader/>
-      ) : (
+      {isLoading && <Preloader/>}
+      {!isLoading && !error && foundMovies.length > 0 &&
         <MoviesCardList
           data={foundMovies}
           likedMovies={data}
@@ -79,7 +78,7 @@ function SavedMovies({data, isLoading, handleLikeClick, setIsLoading}) {
           isShowMoreEnabled={false}
           isCardListVisible={true}
         />
-      )}
+      }
       <div className="saved-movies__divider"></div>
     </main>
   );
