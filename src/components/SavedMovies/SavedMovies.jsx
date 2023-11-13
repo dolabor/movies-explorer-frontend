@@ -10,6 +10,21 @@ function SavedMovies({ data, isLoading, handleLikeClick }) {
   const [error, setError] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
 
+  const updateCardList = () => {
+    const filteredMovies = data.filter(
+      (movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (isShortMovie ? movie.duration >= shortMoviesDuration : true)
+    );
+    setFoundMovies(filteredMovies);
+
+    if (filteredMovies.length === 0) {
+      setError('Ничего не найдено');
+    } else {
+      setError('');
+    }
+  };
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
 
@@ -18,24 +33,13 @@ function SavedMovies({ data, isLoading, handleLikeClick }) {
       setFoundMovies([]);
     } else {
       setError('');
-
-      const filteredMovies = data.filter(
-        (movie) =>
-          movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          (isShortMovie ? movie.duration >= shortMoviesDuration : true)
-      );
-      setFoundMovies(filteredMovies);
-
-      if (filteredMovies.length === 0) {
-        setError('Ничего не найдено');
-      } else {
-        setError('');
-      }
+      updateCardList();
     }
   };
 
   const handleShortMoviesToggle = () => {
     setIsShortMovie(!isShortMovie);
+    updateCardList();
   };
 
   const handleSearchChange = (e) => {
@@ -44,12 +48,7 @@ function SavedMovies({ data, isLoading, handleLikeClick }) {
   };
 
   useEffect(() => {
-    const filteredMovies = data.filter(
-      (movie) =>
-        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (isShortMovie ? movie.duration >= shortMoviesDuration : true)
-    );
-    setFoundMovies(filteredMovies);
+    updateCardList();
   }, [data, searchQuery, isShortMovie]);
 
   return (
