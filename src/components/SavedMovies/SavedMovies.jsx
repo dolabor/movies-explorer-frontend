@@ -4,13 +4,18 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import { shortMoviesDuration } from '../../utils/constants';
 
-function SavedMovies({ data, isLoading, handleLikeClick }) {
+function SavedMovies({ data, isLoading, handleLikeClick, setIsLoading }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
 
-  const updateCardList = () => {
+  const updateCardList = (shortMoviesState = isShortMovie, shouldToggleIsLoading = true) => {
+    if (shouldToggleIsLoading) {
+      setIsLoading(true);
+    }
+    setError('');
+
     const filteredMovies = data.filter(
       (movie) =>
         movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -39,17 +44,16 @@ function SavedMovies({ data, isLoading, handleLikeClick }) {
 
   const handleShortMoviesToggle = () => {
     setIsShortMovie(!isShortMovie);
-    updateCardList();
+    updateCardList(!isShortMovie,false);
   };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setError('');
   };
 
   useEffect(() => {
     updateCardList();
-  }, [data, searchQuery, isShortMovie]);
+  }, []);
 
   return (
     <main className="saved-movies">
