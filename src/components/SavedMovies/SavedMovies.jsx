@@ -4,22 +4,19 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import { shortMoviesDuration } from '../../utils/constants';
 
-function SavedMovies({ data, isLoading, handleLikeClick, setIsLoading }) {
+function SavedMovies({ data, isLoading, handleLikeClick }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [foundMovies, setFoundMovies] = useState([]);
   const [error, setError] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
 
-  const updateCardList = (shortMoviesState = isShortMovie, shouldToggleIsLoading = true) => {
-    if (shouldToggleIsLoading) {
-      setIsLoading(true);
-    }
+  const updateCardList = (shortMoviesState = isShortMovie) => {
     setError('');
 
     const filteredMovies = data.filter(
       (movie) =>
         movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (isShortMovie ? movie.duration <= shortMoviesDuration : true)
+        (shortMoviesState ? movie.duration <= shortMoviesDuration : true)
     );
     setFoundMovies(filteredMovies);
 
@@ -44,7 +41,7 @@ function SavedMovies({ data, isLoading, handleLikeClick, setIsLoading }) {
 
   const handleShortMoviesToggle = () => {
     setIsShortMovie(!isShortMovie);
-    updateCardList(!isShortMovie,false);
+    updateCardList(!isShortMovie);
   };
 
   const handleSearchChange = (e) => {
@@ -66,9 +63,8 @@ function SavedMovies({ data, isLoading, handleLikeClick, setIsLoading }) {
         handleSearchSubmit={handleSearchSubmit}
         handleShortMoviesToggle={handleShortMoviesToggle}
       />
-      {isLoading ? (
-        <Preloader />
-      ) : (
+      {isLoading && <Preloader/>}
+      {!isLoading && !error && foundMovies.length > 0 &&
         <MoviesCardList
           data={foundMovies}
           likedMovies={data}
@@ -77,7 +73,7 @@ function SavedMovies({ data, isLoading, handleLikeClick, setIsLoading }) {
           isShowMoreEnabled={false}
           isCardListVisible={true}
         />
-      )}
+      }
       <div className="saved-movies__divider"></div>
     </main>
   );
